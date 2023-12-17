@@ -36,10 +36,10 @@ recorded by  Gorden
 ## Tasks
 
 1. Data Acquisition
-  - send to opensearch
+    1. send to opensearch
 2. Text Retrieval
 3. Answer generation dataset
-  - Questions and Answers pairs
+    1. Questions and Answers pairs
 4. Answer generation model
 5. UI
 6. Backend
