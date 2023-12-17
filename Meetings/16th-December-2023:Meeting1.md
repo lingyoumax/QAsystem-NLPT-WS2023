@@ -1,5 +1,5 @@
 ## Contents of the first meeting
-members: Liang Guangdeng, Liu Ziwei, Tao Ye, Wu Yong
+members: Liang Guangdeng, Liu Ziwei, Tao Ye, Wu Yong  
 recorded by  Gorden
 ### Project Understanding
 
