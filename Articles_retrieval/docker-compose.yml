@@ -1,0 +1,32 @@
+version: '3'
+services:
+  opensearch:
+    image: opensearchproject/opensearch:latest
+    container_name: opensearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - opensearch_data:/usr/share/opensearch/data
+    networks:
+      - opensearch_network
+
+  opensearch-dashboard:
+    image: opensearchproject/opensearch-dashboards:latest
+    container_name: opensearch-dashboard
+    ports:
+      - "5601:5601"
+    environment:
+      - OPENSEARCH_HOSTS=https://opensearch:9200
+    networks:
+      - opensearch_network
+
+volumes:
+  opensearch_data:
+
+networks:
+  opensearch_network:
+    driver: bridge
