@@ -8,6 +8,7 @@ We use ESearch to get all related PMID and store into the file named pubmed_ids_
 QUERY="intelligence[Title/Abstract] AND (\"2013/01/01\"[Date - Publication] : \"2023/12/31\"[Date - Publication])"
 
 esearch -db pubmed -query "$QUERY" |
+efilter -pub abstract |
 efetch -format uid > pubmed_ids_intelligence_2013_2023Id.txt
 ```
 

@@ -6,11 +6,11 @@ import json
     send all abstracts into opensearch
 '''
 
-csv_file_path = './updated_PubMed_dataset.csv'
+csv_file_path = 'PubMed_dataset.csv'
 
 df = pd.read_csv(csv_file_path)
 
-host = 'localhost'
+host = 'opensearch'
 port = 9200
 auth = ('admin', 'admin')
 
