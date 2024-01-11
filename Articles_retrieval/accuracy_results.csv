@@ -1,0 +1,3 @@
+Data Size,BM25,BM25 + LR (6 features),BM25 + SVM (6 features),BM25 + NN,BM25 + LambdaMART
+100,73.0,76,32.0,77,73
+150,64,64,null,62,55.33
