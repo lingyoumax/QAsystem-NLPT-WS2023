@@ -125,6 +125,7 @@ This project leverages diverse datasets to fulfill various requirements, includi
      - Formatted the fine-tuning dataset as a JSON file, where each line is a dictionary with the structure: `{"query": str, "pos": List[str], "neg":List[str]}`.
      - Here, `query` represents the question, `pos` includes the top 1 chunk (most similar to the question), and `neg` is a randomly chosen chunk from the remaining ones.
   - **Hard Negatives Mining**: Applied the hard negatives mining technique as outlined in the FlagEmbedding fine-tuning examples to further enhance the dataset's quality by incorporating challenging negative examples that closely resemble positive samples in the embedding space.
+- **Relevant Code**: The code and scripts used for the preprocessing steps outlined above can be found in the [Fine-Tuning_Preprocessing folder](https://github.com/lingyoumax/QAsystem-NLPT-WS2023/tree/main/text_retrieval/semantic_search/semantic_search_gd/Fine-Tuning_Preprocessing) of our project's GitHub repository.
 ## Conclusion and Future Work
 
 ## References
