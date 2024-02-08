@@ -5,3 +5,4 @@ opensearch_data
 *.pth
 *.pkl
 *.jsonl
+bge_large_fin

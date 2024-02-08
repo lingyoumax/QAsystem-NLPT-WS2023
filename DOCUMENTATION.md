@@ -126,6 +126,36 @@ This project leverages diverse datasets to fulfill various requirements, includi
      - Here, `query` represents the question, `pos` includes the top 1 chunk (most similar to the question), and `neg` is a randomly chosen chunk from the remaining ones.
   - **Hard Negatives Mining**: Applied the hard negatives mining technique as outlined in the FlagEmbedding fine-tuning examples to further enhance the dataset's quality by incorporating challenging negative examples that closely resemble positive samples in the embedding space.
 - **Relevant Code**: The code and scripts used for the preprocessing steps outlined above can be found in the [Fine-Tuning_Preprocessing folder](https://github.com/lingyoumax/QAsystem-NLPT-WS2023/tree/main/text_retrieval/semantic_search/semantic_search_gd/Fine-Tuning_Preprocessing) of our project's GitHub repository.
+
+### Evaluation Method for Text Retrieval Model
+
+#### Evaluation Process
+
+The evaluation of our Text Retrieval Model using the Mean Reciprocal Rank (MRR) involves the following steps, as reflected in our Python script:
+
+1. **Data Preparation**:
+   - The evaluation dataset was created during the preparation of the Fine-Tuning Dataset for the Text Retrieval Model. After completing the **Manual Filtering** step, a subset of the refined data was randomly sampled to serve as the basis for evaluation. Specifically, 1000 entries were selected using a fixed random seed to ensure consistency and reproducibility in the evaluation process. This sampled dataset contains queries along with the correct identifiers for the relevant documents, which are essential for calculating the Mean Reciprocal Rank (MRR).
+
+2. **Model and Client Setup**:
+   - Initialize the `FlagModel` with the specified model and query instruction settings for retrieval.
+   - Configure the `OpenSearch` client with the necessary connection details, ensuring secure and authenticated access to our indexed data.
+
+3. **Query Processing and Retrieval**:
+   - For each query in the dataset:
+     - Convert the query into an embedding using the `FlagModel.encode_queries` method.
+     - Construct a search query to retrieve the top 5 most relevant documents from the OpenSearch index, ranked by cosine similarity to the query embedding.
+
+4. **Rank Identification and MRR Calculation**:
+   - Identify the rank of the correct document (as indicated by the PMID) within the retrieved results.
+   - Calculate the reciprocal rank for each query; if the correct document is not retrieved, the reciprocal rank is considered 0.
+   - Sum these reciprocal ranks and divide by the total number of queries to obtain the MRR.
+
+5. **Result Analysis**:
+   - Output the computed MRR value, providing a quantitative measure of the Text Retrieval Model's performance in accurately identifying relevant documents.
+
+By meticulously following this process, we ensure a comprehensive and precise evaluation of our model's retrieval capabilities, enabling us to identify strengths and areas for improvement based on the MRR metric.
+
+
 ## Conclusion and Future Work
 
 ## References
