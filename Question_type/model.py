@@ -2,15 +2,15 @@ from transformers import BertForSequenceClassification
 import torch
 device=torch.device("cuda" if torch.cuda.is_available() else "cpu")
 class BERTMultiLabelBinaryClassification(torch.nn.Module):
-    def __init__(self, num_labels):
+    def __init__(self, num_labels,label_weight):
         super(BERTMultiLabelBinaryClassification, self).__init__()
         self.bert = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=num_labels)
-
+        self.label_weight=label_weight
     def forward(self, input_ids, attention_mask, labels=None):
         outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)
         logits = outputs.logits
         if labels is not None:
-            pos_weight = torch.tensor([0.161380,0.758311,0.039626,0.924899,0.042553,0.130641])  # 根据需要调整权重
+            pos_weight = torch.tensor(self.label_weight)  # 根据需要调整权重
             pos_weight.to(device)
             loss_fct = torch.nn.BCEWithLogitsLoss(pos_weight=pos_weight)
             loss_fct.to(device)
