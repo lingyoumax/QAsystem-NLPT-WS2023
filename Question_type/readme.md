@@ -10,7 +10,7 @@ Up to now, we believe that the effect of the model requires a better data set, e
 # 3 Directions for improvement
 When generating the data set, we did not consider which combinations conformed to human questioning habits, resulting in a data set that was not very good. Therefore, the latter step can generate a more complete data set for training.
 # 4 How to use
-just load model model_state_dict_all_data_1.pth,and use tokenizer to deal the user's input. 
+just load model model_state_dict_all_data_1.pth(https://drive.google.com/file/d/1oHAzWi0VMQVfd_TP8kNmCK4K72-KRcPi/view?usp=drive_link),and use tokenizer to deal the user's input. 
 if single sentence:
 ```python
 sentence_encodings = tokenizer(sentence, truncation=True, padding=True, max_length=128)
