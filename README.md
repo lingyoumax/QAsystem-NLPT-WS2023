@@ -2,7 +2,7 @@
 
 ## Team Members
 - Guangdeng Liang, 3769325, Gorden-GitHub, guangdeng.liang@stud.uni-heidelberg.de
-- Ye Tao, 
+- Ye Tao, 4734192, lingyoumax, ye.tao@stud.uni-heidelberg.de
 - Yong Wu, 3770613
 - Ziwei Liu , 
 
