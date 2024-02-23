@@ -40,7 +40,7 @@ Satya Almasian
 
 ### Structure of the system(Ziwei Liu):
 
-![image-2024021722252827 PM](/Users/liuziwei/Library/Application Support/typora-user-images/image-2024021722252827 PM.png)
+![Xnip2024-02-23_13-48-53](./images/Xnip2024-02-23_13-48-53.jpg)
 
 #### Question Type Classification(yong Wu)
 
@@ -140,9 +140,9 @@ Thus, as f(qi,D) increases, the overall score increases, but due to the denomina
 
 Hierarchical Search:
 
-Utilizing this enhanced BM25 algorithm on each text chunk could significantly increase the time cost. Therefore, we initially apply the algorithm to the entire abstracts, selecting the top 20 based on their relevance. Subsequently, we employ the algorithm on the text chunks within these top 20 abstracts to refine our results. This two-step approach balances efficiency with precision, ensuring a thorough yet time-effective search process.
+Utilizing this enhanced BM25 algorithm on each text chunk could significantly increase the time cost. Therefore, we initially apply the algorithm to the entire abstracts, selecting the top 30 based on their relevance. Subsequently, we employ the algorithm on the text chunks within these top 30 abstracts to refine our results. This two-step approach balances efficiency with precision, ensuring a thorough yet time-effective search process.
 
-![image-2024021772407159 PM](/Users/liuziwei/Library/Application Support/typora-user-images/image-2024021772407159 PM.png)
+![Xnip2024-02-23_13-49-58](./images/Xnip2024-02-23_13-49-58.jpg)
 
 ###### Sematic + lexcographical search:
 
@@ -255,7 +255,7 @@ For a detailed view of the implementation and to access the evaluation script, p
 
 
 
-#### Experimental Details and Evaluation Results Analysis
+#### Experimental Details
 
 ##### Text Retrieval Semantic Search(Guangdeng Liang)
 
@@ -268,11 +268,6 @@ Our experimental setup involves several key components and configurations, detai
 - **Model**: We used the `FlagModel` from the FlagEmbedding library with the model identifier `BAAI/bge-large-en-v1.5`. This model was selected for its robust performance in generating embeddings suitable for semantic search tasks.
   - **Query Instruction**: "Represent this sentence for searching relevant passages:" was used to guide the model in generating query-specific embeddings.
   - **Floating Point Precision**: We opted not to use FP16 (`use_fp16=False`) to prioritize the precision of embeddings over computation speed, given the critical nature of accuracy in our retrieval tasks.
-
-###### OpenSearch Setup
-
-- **Index Name**: Initially set as `abstracts_bge` and later as `abstracts_bge_fin1` post fine-tuning, to distinguish between the pre and post fine-tuned model states.
-- **Connection**: Configured to connect to an OpenSearch instance hosted at `opensearch` on port `9200`, with standard authentication and SSL settings adapted for secure communication.
 
 ###### Data Indexing
 
@@ -293,6 +288,8 @@ Our experimental setup involves several key components and configurations, detai
   - **Epochs**: Training was conducted for 1 epoch to apply a moderate level of fine-tuning to the pre-trained embeddings.
   - **Max Token Lengths**: The maximum lengths for queries and passages were set to 120 and 408, respectively, to accommodate the typical length of inputs while respecting the model's capacity.
   - **Temperature**: Set to `0.02`, affecting the sharpness of the softmax distribution used in contrastive learning, with a lower temperature leading to a sharper distribution.
+
+###### Evaluation Results Analysis
 
 Our project evaluates the effectiveness of a text retrieval model using the Mean Reciprocal Rank (MRR) metric, both before and after fine-tuning. The results are as follows:
 
@@ -316,26 +313,57 @@ While we did not employ a traditional baseline model for direct comparison, the 
 
 In summary, our results demonstrate the effectiveness of fine-tuning in enhancing the retrieval capabilities of the model for our specific domain. The observed improvements are in line with our expectations, though the analysis also underscores the importance of balancing domain-specific adaptation with the model's ability to handle a wide range of queries.
 
-##### Text Retrieval Lexicographical Search(Ziwei Liu)
-
-|               | Recall | MRR  |
-| ------------- | ------ | ---- |
-| BM25          | 0.78   | 0.75 |
-| Advanced BM25 | 0.80   | 0.77 |
-
-BM25 Recall for each type query
-
-![image-20240218122106963 PM](/Users/liuziwei/Library/Application Support/typora-user-images/image-20240218122106963 PM.png)
-
-Advanced BM25 Recall for each type query
-
-![image-20240218122120328 PM](/Users/liuziwei/Library/Application Support/typora-user-images/image-20240218122120328 PM.png)
 
 
+#### Text Retrieval Results and Analysis (Ziwei Liu, Guangdeng Liang)
+
+详细写一下用的哪个dataset。
+
+We select 100 questions from our dataset as test dataset randomly. We adopt Top3 Recall and MRR as our evaluation metrics. In the table below, BM25 is the original BM25 algorithm, Advanced BM25 is the algorithm, which duplicates keywords from the query, Hierarchical BM25 is the one we adopt for this project, which is a trade-off between the time and accuracy. 
+
+|                           | Recall | MRR   |
+| ------------------------- | ------ | ----- |
+| BM25                      | 0.763  | 0.735 |
+| Advanced BM25             | 0.78   | 0.77  |
+| Hierarchical BM25 (adopt) | 0.770  | 0.740 |
+| 元模型                    |        |       |
+| fine tuning后的           |        |       |
+
+再加一行
+
+From the table above, we can draw the conclusion that duplicatie keywords of query before sending it to BM25 can improve the search accuracy.
 
 
 
-##### Text Retrieval in our project (Semantic and Lexicographical Search)(Ziwei Liu)
+
+
+
+
+
+
+分类 根据每类别结果 选择混合搜索方案
+
+Advanced BM25 Recall for each type query:
+
+```
+{'Confirmation Questions': 0.8888888888888888, 'Factoid-type Questions': 0.6913580246913581, 'List-type Questions': 0.7727272727272727, 'Causal Questions': 0.8666666666666667, 'Hypothetical Questions': 0.6790123456790125, 'Complex Questions': 0.7790697674418605}
+```
+
+![Xnip2024-02-23_14-34-03](./images/Xnip2024-02-23_14-34-03.jpg)
+
+Advanced BM25 MRR for each type query:
+
+```
+{'Confirmation Questions': 0.8888888888888888, 'Factoid-type Questions': 0.7222222222222222, 'List-type Questions': 0.8181818181818182, 'Causal Questions': 0.8666666666666667, 'Hypothetical Questions': 0.7407407407407407, 'Complex Questions': 0.813953488372093}
+```
+
+![Xnip2024-02-23_14-34-35](./images/Xnip2024-02-23_14-34-35.jpg)
+
+
+
+
+
+##### 
 
 
 
