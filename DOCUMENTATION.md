@@ -8,10 +8,12 @@ Natural Language Processing with Transformers Project
 Guangdeng Liang, 3769325, Data and computer science (GitHub: Gorden-GitHub)\
 Ye Tao, \
 Yong Wu, \
-Ziwei Liu
+Ziwei Liu, 3766789,  Data and computer science (GitHub: ZiweiLiu0908)\
 
 + **Mail Addresses:**\
-guangdeng.liang@stud.uni-heidelberg.de \
+  guangdeng.liang@stud.uni-heidelberg.de \
+
++ ZiweiLiu0908@gmail.com
 
 
 
@@ -22,7 +24,8 @@ guangdeng.liang@stud.uni-heidelberg.de \
   - Ye Tao 
   - Yong Wu 
   - Ziwei Liu
-
+    - Data Acquisition, Text_retrieval, backend, frontend, evaluation
+  
 + **Advisor:** \
 Satya Almasian
 
@@ -34,78 +37,172 @@ Satya Almasian
 ## Related Work
 
 ## Methods/Approach
-### Data Acquisition
-For the "Data Acquisition" phase of our project, we adhered closely to the guidelines provided in the project documentation regarding data selection. Our team elected to focus on PubMed as our primary source of data. Specifically, we targeted abstracts from articles published between 2013 and 2023 that include the term "intelligence" within the abstract text. This decision aligns with our project's domain of interest and sets a clear foundation for our research objectives.
 
-To efficiently gather the required data, we utilized [Entrez Direct](https://www.ncbi.nlm.nih.gov/books/NBK179288/), a tool recommended by PubMed. Entrez Direct offers a command-line interface for accessing NCBI's comprehensive databases, allowing us to precisely retrieve the needed abstracts. This method ensures a streamlined and effective data collection process, pivotal for the success of our subsequent analyses.
+### Structure of the system(Ziwei Liu):
 
-### Workflow
-```mermaid
-graph TD;
-    A[User Inputs Question] --> B[Text Retrieval];
-    B --> C[Retrieve Relevant Text Data];
-    C --> D[Answer Generation Model];
-    D --> E[Generate Answer];
-    
-    subgraph Text Retrieval Construction;
-    F[Chunks of Abstracts] --> G[Embedding Model];
-    G --> H[Generate Embedding Vectors];
-    H --> I[Store Vectors in OpenSearch Database];
-    end;
+![Xnip2024-02-23_13-48-53](./images/Xnip2024-02-23_13-48-53.jpg)
 
-    subgraph Text Retrieval Query;
-    J[Embedding Model for User Question] --> K[Generate Embedding Vector for Question];
-    K --> L[Calculate Similarity with Database];
-    L --> M[Retrieve Top 3 Relevant Texts];
-    end;
+#### Question Type Classification(yong Wu)
 
-    B -.-> F;
-    A -.-> J;
-    M --> C;
-```
 
-### Chunking Methods
+
+#### Text Retrieval
+
+##### Data proprocess(Guangdeng Liang)
+
+Chunking Methods
+
 For effective processing and analysis of text data within our project, implementing an efficient chunking method is essential. One significant consideration is that some embedding models and answer generation models impose restrictions on the maximum number of input tokens they can handle. This limitation necessitates the division of text into smaller, manageable pieces or "chunks" to ensure compatibility with these models' input constraints. Chunking, therefore, becomes not just a matter of processing efficiency but also a fundamental requirement for the operational feasibility of our models.  
 
 To address this, we have opted to utilize the `NLTKTextSplitter` from the `langchain.text_splitter` package, chosen for its robustness and its ability to accurately segment text based on natural language cues, ensuring that each chunk adheres to the models' input token limits while maintaining coherent and contextually meaningful segments of text. This splitter leverages the Natural Language Toolkit (NLTK), a leading platform for building Python programs to work with human language data, which provides powerful linguistic processing capabilities.
 
-### Embedding Model
+##### Semantic Search(Guangdeng Liang)
+
+Embedding Model
+
 In our pursuit of a highly efficient and effective embedding model for our text processing pipeline, we carefully reviewed various options presented in the [rag.pdf](https://moodle.uni-heidelberg.de/pluginfile.php/1371515/mod_resource/content/2/rag.pdf), particularly focusing on the recommendations provided on [Hugging Face's MTEB leaderboard](https://huggingface.co/spaces/mteb/leaderboard). After thorough consideration, we decided to adopt the UAE-Large-V1 model as our primary embedding model.
 
 Our selection of the UAE-Large-V1 model as the embedding model for our project was principally guided by its high ranking on Hugging Face's MTEB leaderboard. The leaderboard showcases a comprehensive evaluation of various models based on their performance across multiple text embedding benchmarks. The UAE-Large-V1 model's superior position indicates its exceptional capability in generating robust and versatile embeddings, making it a highly suitable choice for our project's intricate requirements in text retrieval and analysis. This empirical evidence of the model's effectiveness, as demonstrated in a competitive and diverse testing environment, solidified our decision to incorporate it into our text processing pipeline.
 
 Given the specific nature of our project's domain, fine-tuning the UAE-Large-V1 model on our dataset is a crucial step. This process involves adjusting the model's parameters to better align with the semantic and contextual nuances of our collected text data, particularly the abstracts sourced from PubMed that contain the keyword "intelligence." Fine-tuning ensures that the model's embeddings are highly relevant and optimized for our text corpus, thereby enhancing the accuracy and relevance of the text retrieval and answer generation components of our system.
 
-### Vector Database
+Vector Database
+
 For the storage, management, and retrieval of embedding vectors generated by the UAE-Large-V1 model, our team has chosen OpenSearch as our vector database solution. OpenSearch, a community-driven, open-source search and analytics suite, offers robust capabilities for handling large-scale vector data, making it an ideal choice for our project's needs.
 
-### Text Retrieval Evaluation for Semantic Search
+Text Retrieval Evaluation for Semantic Search
+
 Mean Reciprocal Rank (MRR). The Mean Reciprocal Rank is a statistic measure used to evaluate the performance of information retrieval systems, particularly useful in scenarios where each query has a single relevant document. MRR calculates the average of the reciprocal ranks of the relevant documents for a set of queries. The rank of a document is determined by its position in the list of retrieved documents when ordered by descending relevance to the query.  
 
 MRR Calculation  
 The MRR is computed as follows:  
-$MRR = \frac{1}{|Q|} \sum_{i=1}^{|Q|} \frac{1}{\text{rank}_i}$  
-​where $|Q|$ is the number of queries in the test set, and $\text{rank}_i$ is the rank position of the first relevant document for the $i^{th}$ query. If the relevant document does not appear in the retrieved list, the reciprocal rank is set to 0.
+$$
+MRR = \frac{1}{|Q|} \sum_{i=1}^{|Q|} \frac{1}{\text{rank}_i}
+$$
+where $|Q|$ is the number of queries in the test set, and $\text{rank}_i$ is the rank position of the first relevant document for the $i^{th}$ query. If the relevant document does not appear in the retrieved list, the reciprocal rank is set to 0.
 
-## Experimental Setup and Results
 
-### Data
+
+
+
+##### Lexicographical Search:
+
+###### Baseline Approach BM25:
+
+The BM25 algorithm is a widely-used ranking function in text retrieval[], designed to evaluate the relevance of documents to a search query. It improves upon the simpler TF-IDF model by considering:
+
+1. Term Frequency (TF): How often a query term appears in a document, with diminishing returns for higher frequency to prevent overemphasis on term count.
+2. Document Length: Adjusts scores to prevent bias towards longer documents, ensuring fair comparison across documents of varying lengths.
+3. Inverse Document Frequency (IDF): Gauges the importance of a term based on its rarity across all documents, giving higher weight to rarer terms.
+
+The BM25 score for a document D given a query Q with terms q1,q2,...,qn is calculated as:
+
+
+$$
+Score(D, Q) = \sum_{i=1}^{n} IDF(q_i) \cdot \frac{f(q_i, D) \cdot (k_1 + 1)}{f(q_i, D) + k_1 \cdot (1 - b + b \cdot \frac{|D|}{avgdl})}
+$$
+Where:
+
+f(q_i, D) is q_i's term frequency in the document D,
+|D| is the length of the document D,
+avgdl is the average document length in the text collection,
+IDF(q_i) is the inverse document frequency of the term q_i,
+k_1 and b are free parameters, usually chosen, in absence of advanced optimization, as k_1 ∈ [1.2, 2.0] and b = 0.75.
+
+###### Our Approach:
+
+Intitution:
+
+Our method, inspired by Weighted BM25, assigns different weights to different words in a query, rather than to document fragments. We prioritize keywords within our query by assigning higher weights to them, ensuring BM25 focuses more on these essential terms. For instance, in the question "What were the survival rates for infants born between 22 and 24 weeks of gestation in Western Australia, and what were the reported neurodevelopmental outcomes at ages 3-5 years for those infants who survived?" keywords such as 'infants', 'weeks', 'survived', 'Western', 'Australia', 'gestation', and 'born' are given greater significance. This approach enhances the relevancy of search results by emphasizing the most critical aspects of the query.
+
+We adopt yake, a prowerful tool to extract keywords in paragraph, to extract keywords from the query.
+
+```python
+import yake
+kw_extractor = yake.KeywordExtractor(n=1, dedupLim=0.9, top=10, features=None)
+```
+
+Then we try to increase the weight of those keywords in BM25 algorithm. A intutive and useful method is to duplicate the keywords in the query. For example, a query 
+
+`['What', 'were', 'the', 'survival', 'rates', 'for', 'infants', 'born', 'between', '22', 'and', '24', 'weeks', 'of', 'gestation', 'in', 'Western', 'Australia,', 'and', 'what', 'were', 'the', 'reported', 'neurodevelopmental', 'outcomes', 'at', 'ages', '3-5', 'years', 'in', 'those', 'infants', 'who', 'survived?']`
+
+After we duplicate the keywords in it, we have
+
+ `['What', 'were', 'the', 'survival', 'rates', 'for', 'infants', 'born', 'between', '22', 'and', '24', 'weeks', 'of', 'gestation', 'in', 'Western', 'Australia,', 'and', 'what', 'were', 'the', 'reported', 'neurodevelopmental', 'outcomes', 'at', 'ages', '3-5', 'years', 'in', 'those', 'infants', 'who', 'survived?', 'Australia', 'reported', 'infants', 'survived', 'survival', 'weeks', 'rates', 'gestation', 'Western', 'born']` 
+
+Then we send this query-keywords list to BM25 algorithm to get the score for each document.
+
+Mathematical explaination:
+
+Increasing the value of f(qi,D) will increase the numerator f(qi,D)⋅(k1+1) since k1is a constant. However, the denominator will also increase because it contains the term f(qi,D). But in the denominator, the term frequency f(qi,D) is moderated by the constant k1, as well as the normalization part related to the document length ∣D∣ and the parameter b, which means that the rate of increase in the denominator is not as steep as that of the numerator.
+
+Thus, as f(qi,D) increases, the overall score increases, but due to the denominator, this increase is subject to diminishing returns, a phenomenon known as term frequency saturation. After a certain point, further increases in term frequency have progressively smaller contributions to the score. This prevents the situation where a term's frequency excessively amplifies the document's relevance due to its repetitive occurrence. 
+
+Hierarchical Search:
+
+Utilizing this enhanced BM25 algorithm on each text chunk could significantly increase the time cost. Therefore, we initially apply the algorithm to the entire abstracts, selecting the top 30 based on their relevance. Subsequently, we employ the algorithm on the text chunks within these top 30 abstracts to refine our results. This two-step approach balances efficiency with precision, ensuring a thorough yet time-effective search process.
+
+![Xnip2024-02-23_13-49-58](./images/Xnip2024-02-23_13-49-58.jpg)
+
+###### Sematic + lexcographical search:
+
+In our project, we use different retrieval method for different type of questions. We found blabla . The evaluation detail can be found in the next section.
+
+
+
+### Answer Generation(Yong Wu):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Experimental Setup 
+
+#### Data Acquisition(Guangdeng Liang)
+
+For the "Data Acquisition" phase of our project, we adhered closely to the guidelines provided in the project documentation regarding data selection. Our team elected to focus on PubMed as our primary source of data. Specifically, we targeted abstracts from articles published between 2013 and 2023 that include the term "intelligence" within the abstract text. This decision aligns with our project's domain of interest and sets a clear foundation for our research objectives.
+
+To efficiently gather the required data, we utilized [Entrez Direct](https://www.ncbi.nlm.nih.gov/books/NBK179288/), a tool recommended by PubMed. Entrez Direct offers a command-line interface for accessing NCBI's comprehensive databases, allowing us to precisely retrieve the needed abstracts. This method ensures a streamlined and effective data collection process, pivotal for the success of our subsequent analyses.
+
+
+
 This project leverages diverse datasets to fulfill various requirements, including initial data acquisition, model fine-tuning, and balabala!!!!!. Each dataset undergoes a series of preprocessing steps to ensure its quality and compatibility with our analytical methods. Below, we describe each dataset in detail, outlining their sources, collection methods, and the preprocessing steps applied.
 
-#### 1.Abstracts Dataset
+##### Abstracts Dataset Preparation
 - **Purpose**: Serves as the foundational corpus for the entire project.
 - **Description**: Comprises abstracts from articles published between 2013 and 2023 that include the term "intelligence" within the abstract text.
 - **Source**: Retrieved from PubMed.
 - **Collection Methods**: Utilized the Entrez Direct tool to efficiently query and download relevant abstracts based on specific search criteria, including date range and keyword occurrences. The detailed code and methodology employed for data collection are documented within the `PubMed_dataset` folder in our [GitHub repository](https://github.com/lingyoumax/QAsystem-NLPT-WS2023/tree/main/PubMed_dataset).
 - **Preprocessing Steps**:
-  - balabala!!!!!
   - **Removal of Rows with Missing Values**: Any rows in the CSV files containing missing or incomplete information were identified and removed to ensure the integrity and consistency of the dataset.
   - **Exclusion of Retracted Articles**: Articles that have been retracted were systematically identified and excluded from the dataset.
   - **Text Splitting**: Employed the `NLTKTextSplitter` from the `langchain.text_splitter` package to segment the abstracts into smaller, manageable chunks. This step is crucial for enhancing the processing efficiency and aligning with the input requirements of subsequent models.
 
-#### 2. GPT-4 Generated Question-Answer Pairs (TBD Taoye)
+##### GPT-4 Generated Question-Answer Pairs (TBD Taoye)
 
-#### 3. Fine-Tuning Dataset for Text Retrieval Model in Semantic Search
+
+
+##### Fine-Tuning Dataset for Text Retrieval Model in Semantic Search
 - **Purpose**: Used to fine-tune the embedding model for enhanced performance in text retrieval tasks within our project's specific domain.
 - **Description**: This dataset is crafted by further processing the GPT-4 Generated Question-Answer Pairs, in alignment with the structured methodologies outlined in the [FlagEmbedding fine-tuning examples](https://github.com/FlagOpen/FlagEmbedding/tree/master/examples/finetune).
 - **Source**: Derived from the GPT-4 Generated Question-Answer Pairs.
@@ -127,61 +224,63 @@ This project leverages diverse datasets to fulfill various requirements, includi
   - **Hard Negatives Mining**: Applied the hard negatives mining technique as outlined in the FlagEmbedding fine-tuning examples to further enhance the dataset's quality by incorporating challenging negative examples that closely resemble positive samples in the embedding space.
 - **Relevant Code**: The code and scripts used for the preprocessing steps outlined above can be found in the [Fine-Tuning_Preprocessing folder](https://github.com/lingyoumax/QAsystem-NLPT-WS2023/tree/main/text_retrieval/semantic_search/semantic_search_gd/Fine-Tuning_Preprocessing) of our project's GitHub repository.
 
-### Evaluation Method for Text Retrieval Model in Semantic Search
+#### Evaluation methods
 
-#### Evaluation Process
+##### Text Retrieval Evaluation Method(Guangdeng Liang)
+
+这里就写MRR还是啥吧
 
 The evaluation of our Text Retrieval Model using the Mean Reciprocal Rank (MRR) involves the following steps, as reflected in our Python script:
 
 1. **Data Preparation**:
    - The evaluation dataset was created during the preparation of the Fine-Tuning Dataset for the Text Retrieval Model. After completing the **Manual Filtering** step, a subset of the refined data was randomly sampled to serve as the basis for evaluation. Specifically, 1000 entries were selected using a fixed random seed to ensure consistency and reproducibility in the evaluation process. This sampled dataset contains queries along with the correct identifiers for the relevant documents, which are essential for calculating the Mean Reciprocal Rank (MRR).
-
-2. **Model and Client Setup**:
-   - Initialize the `FlagModel` with the specified model and query instruction settings for retrieval.
-   - Configure the `OpenSearch` client with the necessary connection details, ensuring secure and authenticated access to our indexed data.
-
 3. **Query Processing and Retrieval**:
    - For each query in the dataset:
      - Convert the query into an embedding using the `FlagModel.encode_queries` method.
      - Construct a search query to retrieve the top 5 most relevant documents from the OpenSearch index, ranked by cosine similarity to the query embedding.
-
 4. **Rank Identification and MRR Calculation**:
    - Identify the rank of the correct document (as indicated by the PMID) within the retrieved results.
    - Calculate the reciprocal rank for each query; if the correct document is not retrieved, the reciprocal rank is considered 0.
    - Sum these reciprocal ranks and divide by the total number of queries to obtain the MRR.
-
 5. **Result Analysis**:
    - Output the computed MRR value, providing a quantitative measure of the Text Retrieval Model's performance in accurately identifying relevant documents.
 
 For a detailed view of the implementation and to access the evaluation script, please visit our [GitHub repository folder](https://github.com/lingyoumax/QAsystem-NLPT-WS2023/tree/main/text_retrieval/semantic_search/semantic_search_gd/evaluation). By meticulously following this process, we ensure a comprehensive and precise evaluation of our model's retrieval capabilities, enabling us to identify strengths and areas for improvement based on the MRR metric.
 
-### Experimental Details for Text Retrieval Model in Semantic Search
+##### Answer Generation Evaluation Method (Tao Ye)
+
+
+
+
+
+
+
+#### Experimental Details
+
+##### Text Retrieval Semantic Search(Guangdeng Liang)
+
+这里花几个图 展示结果
 
 Our experimental setup involves several key components and configurations, detailed below, to ensure the replicability of our results.
 
-#### Model and Index Configuration
+###### Model and Index Configuration
 
 - **Model**: We used the `FlagModel` from the FlagEmbedding library with the model identifier `BAAI/bge-large-en-v1.5`. This model was selected for its robust performance in generating embeddings suitable for semantic search tasks.
   - **Query Instruction**: "Represent this sentence for searching relevant passages:" was used to guide the model in generating query-specific embeddings.
   - **Floating Point Precision**: We opted not to use FP16 (`use_fp16=False`) to prioritize the precision of embeddings over computation speed, given the critical nature of accuracy in our retrieval tasks.
 
-#### OpenSearch Setup
-
-- **Index Name**: Initially set as `abstracts_bge` and later as `abstracts_bge_fin1` post fine-tuning, to distinguish between the pre and post fine-tuned model states.
-- **Connection**: Configured to connect to an OpenSearch instance hosted at `opensearch` on port `9200`, with standard authentication and SSL settings adapted for secure communication.
-
-#### Data Indexing
+###### Data Indexing
 
 - **Data Source**: The data was read from a CSV file named `splitted_pubmed_data_NLTK`, containing segmented abstracts alongside metadata such as PMIDs, publication dates, titles, and authors.
 - **Mapping**: A specific mapping configuration was defined for the OpenSearch index to appropriately store various fields including `pmid`, `title`, `vector`, `publishedDate`, `authors`, `text_chunk_id`, and `arxiv_text`, with `vector` being stored as a `knn_vector` of dimension 1024 for similarity searches.
 - **Indexing Process**: Each row from the dataframe was indexed into OpenSearch, with the text chunks encoded into embeddings using the `FlagModel.encode` method before indexing.
 
-#### Fine-Tuning and Evaluation Data Preparation
+###### Fine-Tuning and Evaluation Data Preparation
 
 - **Fine-Tuning Data**: The fine-tuning dataset was prepared and stored in a file named `qa_finetune_data_minedHN.jsonl`, adhering to a structured format suitable for training with negative samples mined for enhanced model performance.
 - **Evaluation Data**: A subset of 1000 samples was selected from the fine-tuning dataset for evaluation purposes, ensuring a diverse range of queries for comprehensive model assessment.
 
-#### Fine-Tuning Process
+###### Fine-Tuning Process
 
 - The model was fine-tuned using a script that leverages PyTorch's distributed training capabilities. Key parameters included:
   - **Learning Rate**: Set to `1e-5`, a commonly used rate that balances convergence speed and stability.
@@ -190,7 +289,7 @@ Our experimental setup involves several key components and configurations, detai
   - **Max Token Lengths**: The maximum lengths for queries and passages were set to 120 and 408, respectively, to accommodate the typical length of inputs while respecting the model's capacity.
   - **Temperature**: Set to `0.02`, affecting the sharpness of the softmax distribution used in contrastive learning, with a lower temperature leading to a sharper distribution.
 
-### Results for Text Retrieval Model in Semantic Search
+###### Evaluation Results Analysis
 
 Our project evaluates the effectiveness of a text retrieval model using the Mean Reciprocal Rank (MRR) metric, both before and after fine-tuning. The results are as follows:
 
@@ -199,22 +298,82 @@ Our project evaluates the effectiveness of a text retrieval model using the Mean
 
 These results are presented in the context of our project's objectives and the expected improvements from fine-tuning.
 
-### Analysis
-
-#### Quantitative Analysis
+##### Quantitative Analysis
 
 The increase in MRR from 0.7259 for the pre-trained model to 0.7961 for the fine-tuned model indicates a significant enhancement in the model's ability to retrieve relevant documents at higher ranks. This improvement aligns with our expectations that fine-tuning the model on a domain-specific dataset would enhance its performance by adapting its embeddings to be more representative of our specific corpus.
 
-#### Baseline Comparison
+###### Baseline Comparison
 
 While we did not employ a traditional baseline model for direct comparison, the pre-trained model serves as an implicit baseline to gauge the impact of fine-tuning. The observed improvement in MRR post fine-tuning suggests that our approach could be well-suited for applications requiring nuanced understanding of domain-specific content, potentially more so than general-purpose pre-trained models.
 
-#### Potential Reasons for Observed Results
+###### Potential Reasons for Observed Results
 
 - **Domain-Specific Adaptation**: The fine-tuning process likely enabled the model to better align its embeddings with the semantic nuances of our corpus, leading to improved retrieval accuracy.
 - **Limitations in Generalization**: The slight underperformance in certain queries suggests a limitation in the model's ability to generalize beyond the specific content it was fine-tuned on, highlighting a potential trade-off between specialization and generalizability.
 
 In summary, our results demonstrate the effectiveness of fine-tuning in enhancing the retrieval capabilities of the model for our specific domain. The observed improvements are in line with our expectations, though the analysis also underscores the importance of balancing domain-specific adaptation with the model's ability to handle a wide range of queries.
+
+
+
+#### Text Retrieval Results and Analysis (Ziwei Liu, Guangdeng Liang)
+
+详细写一下用的哪个dataset。
+
+We select 100 questions from our dataset as test dataset randomly. We adopt Top3 Recall and MRR as our evaluation metrics. In the table below, BM25 is the original BM25 algorithm, Advanced BM25 is the algorithm, which duplicates keywords from the query, Hierarchical BM25 is the one we adopt for this project, which is a trade-off between the time and accuracy. 
+
+|                           | Recall | MRR   |
+| ------------------------- | ------ | ----- |
+| BM25                      | 0.763  | 0.735 |
+| Advanced BM25             | 0.78   | 0.77  |
+| Hierarchical BM25 (adopt) | 0.770  | 0.740 |
+| 元模型                    |        |       |
+| fine tuning后的           |        |       |
+
+再加一行
+
+From the table above, we can draw the conclusion that duplicatie keywords of query before sending it to BM25 can improve the search accuracy.
+
+
+
+
+
+
+
+
+
+分类 根据每类别结果 选择混合搜索方案
+
+Advanced BM25 Recall for each type query:
+
+```
+{'Confirmation Questions': 0.8888888888888888, 'Factoid-type Questions': 0.6913580246913581, 'List-type Questions': 0.7727272727272727, 'Causal Questions': 0.8666666666666667, 'Hypothetical Questions': 0.6790123456790125, 'Complex Questions': 0.7790697674418605}
+```
+
+![Xnip2024-02-23_14-34-03](./images/Xnip2024-02-23_14-34-03.jpg)
+
+Advanced BM25 MRR for each type query:
+
+```
+{'Confirmation Questions': 0.8888888888888888, 'Factoid-type Questions': 0.7222222222222222, 'List-type Questions': 0.8181818181818182, 'Causal Questions': 0.8666666666666667, 'Hypothetical Questions': 0.7407407407407407, 'Complex Questions': 0.813953488372093}
+```
+
+![Xnip2024-02-23_14-34-35](./images/Xnip2024-02-23_14-34-35.jpg)
+
+
+
+
+
+##### 
+
+
+
+##### Answer Generation Evaluation Results(Tao ye)
+
+
+
+
+
+### 
 
 
 ## Conclusion and Future Work
