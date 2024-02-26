@@ -11,7 +11,15 @@
 - Waiting for completion
 ### IV. PPO 
 - Waiting for completion
-## 2.Deployment of models
+
+## 2.Environment Configuration
+- a.Training configuration
+  - random access memory (RAM):Minimum 15GB
+  - Display card：4090,24GB(for training, at least 15GB)
+- b.Inference Configuration
+  -  random access memory (RAM):Minimum 5GB
+  -  Display card：4090,24GB(for inference, at least 12GB, if for batch inference, Recommended minimum 18GB)
+## 3.Deployment of models
 - Waiting for completion
 
 
