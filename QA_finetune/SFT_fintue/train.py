@@ -1,5 +1,3 @@
-from transformers.integrations import TensorBoardCallback
-from torch.utils.tensorboard import SummaryWriter
 from datasets import Dataset
 import torch
 from transformers import  AutoModelForCausalLM, DataCollatorForSeq2Seq,BitsAndBytesConfig,Trainer
@@ -8,6 +6,7 @@ import pandas as pd
 import os
 import global_config
 from utils.utils import process_func,find_all_linear_names
+from sklearn.model_selection import train_test_split
 
 class ModifiedTrainer(Trainer):
     def save_model(self, output_dir=None, _internal_call=False):
@@ -24,13 +23,15 @@ class ModifiedTrainer(Trainer):
 if "__main__" == __name__:
     # 处理数据集
     # 将JSON文件转换为CSV文件
-    writer = SummaryWriter()
-    df = pd.read_json('data/finetune_dataset_cleaned.json')
+    df = pd.read_json('final_train.json')
     ds = Dataset.from_pandas(df)
-    # 加载tokenizer
-    
+    dataset_size = len(ds)
+    test_size = int(0.05 * dataset_size)
+    test_ds = ds.shuffle(seed=42).select(range(test_size))
+    train_ds = ds.select(range(test_size, dataset_size))
     # 将数据集变化为token形式
-    tokenized_id = ds.map(process_func, remove_columns=ds.column_names)
+    tokenized_id = train_ds.map(process_func, remove_columns=ds.column_names)
+    test_tokenized_id=test_ds.map(process_func, remove_columns=ds.column_names)
     bnb_config=BitsAndBytesConfig(
             load_in_4bit=True,
             bnb_4bit_compute_dtype=torch.float16,
@@ -39,8 +40,7 @@ if "__main__" == __name__:
             llm_int8_threshold=6.0,
             llm_int8_has_fp16_weight=False,
         )
-    model = AutoModelForCausalLM.from_pretrained(global_config.model_name, trust_remote_code=True, quantization_config=bnb_config, device_map="auto")
-    model.supports_gradient_checkpointing = True
+    model = AutoModelForCausalLM.from_pretrained(global_config.model_name, trust_remote_code=True, use_flash_attn=False,quantization_config=bnb_config, device_map="auto")
     model.gradient_checkpointing_enable()
     model.enable_input_require_grads()
     #inference should be true
@@ -64,11 +64,10 @@ if "__main__" == __name__:
         model=model,
         args=global_config.args,
         train_dataset=tokenized_id,
+        eval_dataset=test_tokenized_id,
         data_collator=DataCollatorForSeq2Seq(tokenizer=global_config.tokenizer, padding=True),
-        callbacks=[TensorBoardCallback(writer)],
         )
     trainer.train() # 开始训练
 
-    writer.close()
     # save model
     model.save_pretrained(global_config.args.output_dir)
