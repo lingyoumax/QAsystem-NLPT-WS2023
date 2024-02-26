@@ -42,11 +42,11 @@ Satya Almasian
 
 ![Xnip2024-02-23_13-48-53](./images/Xnip2024-02-23_13-48-53.jpg)
 
-#### Question Type Classification(yong Wu)
+### Question Type Classification(yong Wu)
 
 
 
-#### Text Retrieval
+### Text Retrieval
 
 ##### Data proprocess(Guangdeng Liang)
 
@@ -89,7 +89,7 @@ where $|Q|$ is the number of queries in the test set, and $\text{rank}_i$ is the
 
 ###### Baseline Approach BM25:
 
-The BM25 algorithm is a widely-used ranking function in text retrieval[], designed to evaluate the relevance of documents to a search query. It improves upon the simpler TF-IDF model by considering:
+The BM25 algorithm is a widely-used ranking function in text retrieval, designed to evaluate the relevance of documents to a search query. It improves upon the simpler TF-IDF model by considering:
 
 1. Term Frequency (TF): How often a query term appears in a document, with diminishing returns for higher frequency to prevent overemphasis on term count.
 2. Document Length: Adjusts scores to prevent bias towards longer documents, ensuring fair comparison across documents of varying lengths.
@@ -113,9 +113,9 @@ k_1 and b are free parameters, usually chosen, in absence of advanced optimizati
 
 Intitution:
 
-Our method, inspired by Weighted BM25, assigns different weights to different words in a query, rather than to document fragments. We prioritize keywords within our query by assigning higher weights to them, ensuring BM25 focuses more on these essential terms. For instance, in the question "What were the survival rates for infants born between 22 and 24 weeks of gestation in Western Australia, and what were the reported neurodevelopmental outcomes at ages 3-5 years for those infants who survived?" keywords such as 'infants', 'weeks', 'survived', 'Western', 'Australia', 'gestation', and 'born' are given greater significance. This approach enhances the relevancy of search results by emphasizing the most critical aspects of the query.
+Our method, inspired by Weighted BM25, assigns different weights to different words in a query, rather than to assign different weights to defferent document fragments. We prioritize keywords within our query by assigning higher weights to them, ensuring BM25 focuses more on these essential keywords. For instance, in the question "What were the survival rates for infants born between 22 and 24 weeks of gestation in Western Australia, and what were the reported neurodevelopmental outcomes at ages 3-5 years for those infants who survived?" keywords such as 'infants', 'weeks', 'survived', 'Western', 'Australia', 'gestation', and 'born' are given greater significance. This approach enhances the relevancy of search results by emphasizing the most critical aspects of the query.
 
-We adopt yake, a prowerful tool to extract keywords in paragraph, to extract keywords from the query.
+We use yake, a prowerful tool to extract keywords in paragraph, to extract keywords from the query.
 
 ```python
 import yake
@@ -224,7 +224,7 @@ This project leverages diverse datasets to fulfill various requirements, includi
   - **Hard Negatives Mining**: Applied the hard negatives mining technique as outlined in the FlagEmbedding fine-tuning examples to further enhance the dataset's quality by incorporating challenging negative examples that closely resemble positive samples in the embedding space.
 - **Relevant Code**: The code and scripts used for the preprocessing steps outlined above can be found in the [Fine-Tuning_Preprocessing folder](https://github.com/lingyoumax/QAsystem-NLPT-WS2023/tree/main/text_retrieval/semantic_search/semantic_search_gd/Fine-Tuning_Preprocessing) of our project's GitHub repository.
 
-#### Evaluation methods
+## Evaluation methods
 
 ##### Text Retrieval Evaluation Method(Guangdeng Liang)
 
@@ -255,7 +255,7 @@ For a detailed view of the implementation and to access the evaluation script, p
 
 
 
-#### Experimental Details
+## Experimental Details
 
 ##### Text Retrieval Semantic Search(Guangdeng Liang)
 
@@ -321,49 +321,20 @@ In summary, our results demonstrate the effectiveness of fine-tuning in enhancin
 
 We select 100 questions from our dataset as test dataset randomly. We adopt Top3 Recall and MRR as our evaluation metrics. In the table below, BM25 is the original BM25 algorithm, Advanced BM25 is the algorithm, which duplicates keywords from the query, Hierarchical BM25 is the one we adopt for this project, which is a trade-off between the time and accuracy. 
 
-|                           | Recall | MRR   |
-| ------------------------- | ------ | ----- |
-| BM25                      | 0.763  | 0.735 |
-| Advanced BM25             | 0.78   | 0.77  |
-| Hierarchical BM25 (adopt) | 0.770  | 0.740 |
-| 元模型                    |        |       |
-| fine tuning后的           |        |       |
-
-再加一行
+|                     | Recall | MRR   |
+| ------------------- | ------ | ----- |
+| BM25                | 0.763  | 0.735 |
+| Advanced BM25       | 0.78   | 0.77  |
+| Hierarchical BM25   | 0.770  | 0.740 |
+| 原模型              |        |       |
+| fine tuning后的模型 |        |       |
+| Mixed Search        | 0.77   | -     |
 
 From the table above, we can draw the conclusion that duplicatie keywords of query before sending it to BM25 can improve the search accuracy.
 
 
 
 
-
-
-
-
-
-分类 根据每类别结果 选择混合搜索方案
-
-Advanced BM25 Recall for each type query:
-
-```
-{'Confirmation Questions': 0.8888888888888888, 'Factoid-type Questions': 0.6913580246913581, 'List-type Questions': 0.7727272727272727, 'Causal Questions': 0.8666666666666667, 'Hypothetical Questions': 0.6790123456790125, 'Complex Questions': 0.7790697674418605}
-```
-
-![Xnip2024-02-23_14-34-03](./images/Xnip2024-02-23_14-34-03.jpg)
-
-Advanced BM25 MRR for each type query:
-
-```
-{'Confirmation Questions': 0.8888888888888888, 'Factoid-type Questions': 0.7222222222222222, 'List-type Questions': 0.8181818181818182, 'Causal Questions': 0.8666666666666667, 'Hypothetical Questions': 0.7407407407407407, 'Complex Questions': 0.813953488372093}
-```
-
-![Xnip2024-02-23_14-34-35](./images/Xnip2024-02-23_14-34-35.jpg)
-
-
-
-
-
-##### 
 
 
 
