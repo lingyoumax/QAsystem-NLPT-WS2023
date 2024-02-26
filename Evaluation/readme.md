@@ -27,3 +27,6 @@ The coherence of the answer sentence.
 
 Whether it contains content other than the question. 
 Information density in the answer + compare the total content and the original answer's cosine similarity and length after text summarization technology.
+
+##### Response length
+We can use the current GPT4 responses as a response template and then compare the response lengths of the different models
