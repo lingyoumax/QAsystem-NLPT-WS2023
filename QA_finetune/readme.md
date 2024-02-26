@@ -8,9 +8,9 @@
 - b.Quantization at model load due to resource issues
 - c.Compared to full fine-tuning, we use the adapter[^4] approach which is less memory intensive and more efficient.
 ### III.Reward model
-- Waiting for completion
+- **Waiting for completion**
 ### IV. PPO 
-- Waiting for completion
+- **Waiting for completion**
 
 ## 2.Environment Configuration
 - a.Training configuration
@@ -19,14 +19,21 @@
 - b.Inference Configuration
   -  random access memory (RAM):Minimum 5GB
   -  Display card：4090,24GB(for inference, at least 12GB, if for batch inference, Recommended minimum 18GB)
-## 3.Deployment of models
-- Waiting for completion
-
-
-
-
-
-
+## 4.How to use
+- a. build dataset
+  - supervised fine-tuning: can see the "SFT_data_process_pipeline.py" file.
+  - reward model: **waiting for completion**
+  - PPO: **waiting for completion**
+- b.supervised fine-tuning:
+  - find the SFT-fintune
+  - if want to train a new lora model, set global_configs.lora_model="", and use "python train.py"
+  - if want to continue train the lora model, down load the lora model from link in SFT_fintune/lora_out/Qwen_sft/out, set global_configs.lora_model="Qwen_sft_out", and use "python train.py"
+- c.reward model
+  - **waiting for completion**
+- d.PPO
+  - **waiting for completion**
+## 5.Deployment of models
+- **Waiting for completion**
 
 
 ## **Citation**:
