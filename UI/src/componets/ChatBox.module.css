@@ -1,0 +1,53 @@
+.wrapper {
+    height: 80vh;
+    width: 80vw;
+    border: 1px solid black;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: #F5F5F5;
+    display: flex;
+    flex-direction: row;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    overflow: hidden;
+}
+.chatbox{
+    height: 100%;
+    width: 70%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.box{
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    gap: 2.5rem;
+    overflow: auto;
+    /* 针对 WebKit 浏览器隐藏滚动条 */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+.input_question{
+    height: 5%;
+    border: 1px solid black;
+    border-bottom: 0;
+    border-left: 0;
+    padding: 0.1rem 0.7rem;
+    font-size: 1rem;
+}
+.progress{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+}
