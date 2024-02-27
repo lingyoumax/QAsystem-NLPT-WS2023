@@ -1,1 +1,0 @@
-about the pubmed data can download from link(https://drive.google.com/file/d/1s93GC6tvM4JlTeiMLVviLQjqSrEEnd73/view?usp=sharing), and qa dataset can download from link(https://drive.google.com/file/d/1AnuhI_V66kN-M53D0IEOqY6TyzwhxzDX/view?usp=sharing)
