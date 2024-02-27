@@ -1,15 +1,19 @@
 # QA fintuen using Qwen-7B-Chat[^1]
-## 1. Model Processing Flow
-### I. Data set processing
-- a.Generation of more data sets：Use the self instuct[^2] method to generate the data set using the QA seed library we concocted.But in contrast to the generation for generic domains used in the original approach, we set the INSTRUCTION to the relevant statement segment, the INPUT to the different types of questions, and the OUTPUT to the corresponding answers. Similarly it is also categorized into judgmental and non-judgmental questions.
-- b.Using the MoDS[^3] method to filter out higher quality datasets.
-### II. supervised fine-tuning
-- a.  We used the enhanced dataset obtained earlier to accomplish this step of fine-tuning.
+## 1. Dataset optimization
+### I. Generation of more data sets：
+Use the self instuct[^2] method to generate the data set using the QA seed library we concocted.But in contrast to the generation for generic domains used in the original approach, we set the INSTRUCTION to the relevant statement segment, the INPUT to the different types of questions, and the OUTPUT to the corresponding answers. Similarly it is also categorized into judgmental and non-judgmental questions.
+### II.MoDS filter dataset
+Using the MoDS[^3] method to filter out higher quality datasets.
+
+## 2.Model training
+### II. supervised fine-tuning(SFT folder)
+- a.We used the enhanced dataset obtained earlier to accomplish this step of fine-tuning.
 - b.Quantization at model load due to resource issues
 - c.Compared to full fine-tuning, we use the adapter[^4] approach which is less memory intensive and more efficient.
-### III.Reward model
+- d.To enhance generalization capabilities, we use NEFTune[^5].
+### III.Reward model fine-tuning(Reward folder)
 - **Waiting for completion**
-### IV. PPO 
+### IV. PPO (PPO folder)
 - **Waiting for completion**
 
 ## 2.Environment Configuration
@@ -21,9 +25,7 @@
   -  Display card：4090,24GB(for inference, at least 12GB, if for batch inference, Recommended minimum 18GB)
 ## 4.How to use
 - a. build dataset
-  - supervised fine-tuning: can see the "SFT_data_process_pipeline.py" file.
-  - reward model: **waiting for completion**
-  - PPO: **waiting for completion**
+  - can see dataset_optimization
 - b.supervised fine-tuning:
   - find the SFT-fintune
   - if want to train a new lora model, set global_configs.lora_model="", and use "python train.py"
@@ -34,8 +36,7 @@
   - **waiting for completion**
 ## 5.Deployment of models
 - **Waiting for completion**
-
-
+- 
 ## **Citation**:
 [^1]:```bibtex
     @article{qwen,
@@ -71,3 +72,4 @@
       year =         {2022}
       }
      ```
+[^5]:	arXiv:2310.05914
