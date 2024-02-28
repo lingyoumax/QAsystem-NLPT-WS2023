@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from mongodb import question_collection
 from QuestionModel import Question
 from process import process
-
+import uvicorn
 app = FastAPI()
 
 
@@ -11,14 +11,13 @@ app = FastAPI()
 async def root(input: Question):
     question = input.question
     TIME_STAMP = input.time_stamp
-    year = input.year #"1999-2010"
+    year = input.year  # "1999-2010"
     # Write to database with question, TIME_STAMP, and input set to true, others set to false
-    question_doc = {"question": question, "year": year.split('-'), "time_stamp": TIME_STAMP, "input": True, 'classification': False,
-                    'retrieval': False, 'answerGeneration': False, 'output': False, 'reference': "", 'type': "", 'answer': ""}
+    question_doc = {"question": question, "year": year.split('-'), "time_stamp": TIME_STAMP, "input": True,
+                    'retrieval': False, 'answerGeneration': False, 'output': False, 'reference': "", 'answer': ""}
     question_collection.insert_one(question_doc)
     asyncio.create_task(process(TIME_STAMP, question, year))
     return {"message": "question input successful"}
-
 
 
 @app.get("/questionStatus/{TIME_STAMP}")
@@ -33,3 +32,6 @@ async def getStatus(TIME_STAMP: str):
               }
 
     return {'res': 'success', 'status': f'{status}'}
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)
