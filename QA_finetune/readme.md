@@ -12,7 +12,9 @@ Using the MoDS[^3] method to filter out higher quality datasets.
 - c.Compared to full fine-tuning, we use the adapter[^4] approach which is less memory intensive and more efficient.
 ### III.Reward model fine-tuning(Reward folder)
 - a.Our reward model is based on the Qwen_SFT trained in the previous step to select the last layer of lm_head, and uses a new v_head layer (full linear) as the reward model.
-- 
+- b.In the construction of the data set, we used self instruct to construct a large number of questions, and then used Qwen_SFT to generate different answers based on random parameters such as temperature and top_p. Then use GPT3.5 as the reply scoring machine. So we have a training data set.
+- c.In addition, we use 8000 of full-hh-rlhf[^5] as an additional training data set.
+- d.For some other parameters, see the corresponding global_config.py.
 ### IV. PPO (PPO folder)
 - **Waiting for completion**
 
@@ -74,3 +76,4 @@ Using the MoDS[^3] method to filter out higher quality datasets.
       year =         {2022}
       }
      ```
+[^5]:(https://huggingface.co/datasets/Dahoas/full-hh-rlhf)
