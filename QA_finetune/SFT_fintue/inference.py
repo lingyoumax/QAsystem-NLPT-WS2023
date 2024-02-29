@@ -87,10 +87,8 @@ def inference(instructions,temperature=0.7,top_p=0.2,max_new_tokens=512,):
             result_instructions.append(result_instruction)
             index = index + 1
             print('index', index)
-            
-
-    with open("result_{}.json".format(json_i), 'w') as f:
-        json.dump(result_instructions, f)
+    print("success inference")
+    return result_instructions
 
 if __name__ == "__main__":
     inference("")
