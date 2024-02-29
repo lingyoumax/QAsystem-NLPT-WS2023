@@ -10,8 +10,7 @@ from tqdm import tqdm
 import argparse
 from utils.qwen_generation_utils import make_context, decode_tokens, get_stop_words_ids
 
-def inference(json_i):
-    device="cuda"
+def inference(instructions,temperature=0.7,top_p=0.2,max_new_tokens=512,):
     model_name=global_config.model_name
     lora_model=global_config.lora_model
     bnb_config=BitsAndBytesConfig(
@@ -24,11 +23,13 @@ def inference(json_i):
         )
     
     model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True, quantization_config=bnb_config, device_map="auto").eval()
-    model.load_adapter(lora_model)
+
+    if lora_model!="":
+        model.load_adapter(lora_model)
     
     generation_config = GenerationConfig(
-            temperature=0.8,
-            top_p=0.75,
+            temperature=temperature,
+            top_p=top_p,
             do_sample=True,
             num_beams=4,
         )
@@ -41,8 +42,6 @@ def inference(json_i):
     padding_side='left',
     trust_remote_code=True
     )
-    
-    instructions = jload("data/no_in_k_greedy_dataset_{}.json".format(json_i)) 
     
     result_instructions = []
     index=0
@@ -57,7 +56,7 @@ def inference(json_i):
             tokenizer,
             prompt,
             system="Now you are a question answering assistant.",
-           max_window_size=model.generation_config.max_window_size,
+            max_window_size=model.generation_config.max_window_size,
             chat_format=model.generation_config.chat_format,
             )
             batch_raw_text.append(raw_text)
@@ -67,7 +66,7 @@ def inference(json_i):
             batch_input_ids,
             return_dict_in_generate=False,
             generation_config=model.generation_config,
-            max_new_tokens=512,
+            max_new_tokens=max_new_tokens,
             output_scores=True
         )
         padding_lens = [batch_input_ids[i].eq(tokenizer.pad_token_id).sum().item() for i in range(batch_input_ids.size(0))]
@@ -93,14 +92,5 @@ def inference(json_i):
     with open("result_{}.json".format(json_i), 'w') as f:
         json.dump(result_instructions, f)
 
-def args():
-    parser = argparse.ArgumentParser()
-    #training parameters
-    parser.add_argument('--json_i', type=int, default=0, help='choose which json to inferenct')
-    args, unknown_args = parser.parse_known_args()
-
-    return args
-
 if __name__ == "__main__":
-    arg=args()
-    inference(arg.json_i)
+    inference("")
