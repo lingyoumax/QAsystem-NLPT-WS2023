@@ -10,9 +10,9 @@ Using the MoDS[^3] method to filter out higher quality datasets.
 - a.We used the enhanced dataset obtained earlier to accomplish this step of fine-tuning.
 - b.Quantization at model load due to resource issues
 - c.Compared to full fine-tuning, we use the adapter[^4] approach which is less memory intensive and more efficient.
-- d.To enhance generalization capabilities, we use NEFTune[^5].
 ### III.Reward model fine-tuning(Reward folder)
-- **Waiting for completion**
+- a.Our reward model is based on the Qwen_SFT trained in the previous step to select the last layer of lm_head, and uses a new v_head layer (full linear) as the reward model.
+- 
 ### IV. PPO (PPO folder)
 - **Waiting for completion**
 
@@ -34,9 +34,11 @@ Using the MoDS[^3] method to filter out higher quality datasets.
   - **waiting for completion**
 - d.PPO
   - **waiting for completion**
-## 5.Deployment of models
+ 
+## 5. Pipeline
 - **Waiting for completion**
-- 
+## 6.Deployment of models
+- **Waiting for completion**
 ## **Citation**:
 [^1]:```bibtex
     @article{qwen,
@@ -72,4 +74,3 @@ Using the MoDS[^3] method to filter out higher quality datasets.
       year =         {2022}
       }
      ```
-[^5]:	arXiv:2310.05914
