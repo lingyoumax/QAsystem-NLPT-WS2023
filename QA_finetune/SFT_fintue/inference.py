@@ -83,7 +83,10 @@ def inference(instructions,temperature=0.7,top_p=0.2,max_new_tokens=512,):
             ]
         print(batch_response)
         for j in range(start,end):
-            result_instruction = {'instruction':instructions[j]["instruction"], 'input':instructions[j]["input"], 'output':instructions[j]["output"], 'generated':batch_response[j-start]}
+            if hasattr(instructions[j],"output"):
+                result_instruction = {'instruction':instructions[j]["instruction"], 'input':instructions[j]["input"], 'output':instructions[j]["output"], 'generated':batch_response[j-start]}
+            else:
+                result_instruction = {'instruction':instructions[j]["instruction"], 'input':instructions[j]["input"], 'output':"", 'generated':batch_response[j-start]}
             result_instructions.append(result_instruction)
             index = index + 1
             print('index', index)
