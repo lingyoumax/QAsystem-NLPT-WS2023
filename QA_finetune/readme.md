@@ -81,3 +81,14 @@ Using the MoDS[^3] method to filter out higher quality datasets.
       }
      ```
 [^5]:(https://huggingface.co/datasets/Dahoas/full-hh-rlhf)
+[^6]:```bibtex
+      @misc{vonwerra2022trl,
+      author = {Leandro von Werra and Younes Belkada and Lewis Tunstall and Edward Beeching and Tristan Thrush and Nathan Lambert and Shengyi Huang},
+      title = {TRL: Transformer Reinforcement Learning},
+      year = {2020},
+      publisher = {GitHub},
+      journal = {GitHub repository},
+      howpublished = {\url{https://github.com/huggingface/trl}}
+      }
+     ```
+[^7]:https://ai.meta.com/research/publications/llama-2-open-foundation-and-fine-tuned-chat-models/
