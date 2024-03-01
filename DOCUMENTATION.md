@@ -7,13 +7,13 @@ Natural Language Processing with Transformers Project
 + **Team Members:** \
 Guangdeng Liang, 3769325, Data and computer science (GitHub: Gorden-GitHub)\
 Ye Tao, \
-Yong Wu, \
+Yong Wu, 3770613, Data and computer science (Github:yongwu_cs)\
 Ziwei Liu, 3766789,  Data and computer science (GitHub: ZiweiLiu0908)\
 
 + **Mail Addresses:**\
   guangdeng.liang@stud.uni-heidelberg.de \
-
-+ ZiweiLiu0908@gmail.com
++ ZiweiLiu0908@gmail.com\
++ yong.wu@stud.uni-heidelberg.de
 
 
 
