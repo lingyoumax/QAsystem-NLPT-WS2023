@@ -28,7 +28,7 @@ async def root(input: Question):
         year = ""
     else:
         year = year.split('-')
-    # 写入数据库
+    
     question_doc = {
         "question": question,
         "year": year,
@@ -43,10 +43,10 @@ async def root(input: Question):
     }
     await question_collection.insert_one(question_doc)
 
-    # 将 process 函数添加为后台任务
+    
     asyncio.create_task(process(TIME_STAMP, question, year, author))
 
-    # 立即返回响应
+    
     return {"message": "question input successful"}
 
 
@@ -60,7 +60,8 @@ async def getStatus(input: TIME_STAMP_Model):
     status = {'input': question_status['input'],
               'retrieval': question_status['retrieval'],
               'answerGenerating': question_status['answerGeneration'],
-              'output': question_status['output']
+              'output': question_status['output'],
+              'reference': question_status['reference'],
                 }
 
     return {'res': 'success', 'status': status}
@@ -74,4 +75,4 @@ async def getAnswer(input: TIME_STAMP_Model):
 
 # if __name__ == "__main__":
 #     uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)
-# 运行 uvicorn main:app --reload
+# uvicorn main:app --reload
