@@ -11,7 +11,27 @@
     border: 1px solid green;
     padding: 0.5rem;
     border-radius: 0.3rem;
-    background-color: #ffffff;
-    color: green;
+    /*background-color: #ffffff;*/
+    /*color: green;*/
+    background-color: #09ef09;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.processing{
+    border: 1px solid #f88603;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    background-color: #f88603;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    animation: pulse 2s infinite;
+}
+@keyframes pulse {
+    0% {
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        box-shadow: 0 4px 40px 0 rgba(0, 0, 0, 0.4);
+    }
+    100% {
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2);
+    }
 }
