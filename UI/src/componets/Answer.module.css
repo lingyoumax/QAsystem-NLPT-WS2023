@@ -1,7 +1,25 @@
 .leftbox{
     max-width: 60%;
     padding: 0.7rem 1rem;
-    background-color: #b4b2b2;
+    background-color: #D8E0F5;
     margin-right: auto;
     border-radius: 1rem;
+    position: relative;
+}
+.hoverBox {
+    position: absolute;
+    max-width: 25rem;
+    word-wrap: break-word; /* 确保单词在需要时可以断开来适应行的宽度 */
+    white-space: normal; /* 允许内容根据需要换行 */
+
+    /*position: fixed; !* 使用 fixed 以便它相对于视口定位 *!*/
+    background-color: #aeb8d2;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    display: none; /* 默认不显示，将在 JS 中处理显示逻辑 */
+}
+
+
+.leftbox:hover .hoverBox {
+    display: block; /* 鼠标悬停时显示 */
 }
