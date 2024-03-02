@@ -10,38 +10,46 @@ bm25_abstract = BM25(tokenized_texts)
 df2 = pd.read_csv('./retrieval/splitted_pubmed_data_NLTK.csv')
 
 
-def retrieval(question, year):
-    res_semantic = search_arxiv_texts(question)[1]
-    res_lex = weightBM25(question, df, df2, year)[1]
-    question += ' ' + res_semantic + ' ' + res_lex
+def retrieval(question, year, author):
+    res_semantic = search_arxiv_texts(question, year, author)
+    if not res_semantic:
+        res_semantic = ""
+    res_lex = weightBM25(question, df, df2, year, author)[1]
 
-    res_semantic = search_arxiv_texts(question)[1]
-    res_lex = weightBM25(question, df, df2, year)[1]
+    res_semantic = search_arxiv_texts(question + ' ' + res_semantic, year, author)
+    if not res_semantic:
+        res_semantic = ""
+    res_lex = weightBM25(question + ' ' + res_lex, df, df2, year, author)[1]
+    res_lex = res_lex.replace('\n', '')
 
-    if res_semantic == res_lex:
+
+    if res_semantic == res_lex or res_lex in res_semantic:
         return res_lex
     else:
         return res_lex + " " + res_semantic
 
+# What are some challenges and limitations in using data mining techniques in healthcare?
 
-async def answerGeneration(type, question, reference):
-    return 1
+# def answerGeneration(question, reference):
+#     answer = inference(instructions=[{"instruction": reference, "input": question}], model_name="Qwen/Qwen1.5-7B-Chat")
+#     print(answer)
+#     return 1
 
 
-async def process(TIME_STAMP, question, year):
+async def process(TIME_STAMP, question, year, author):
     query = {"time_stamp": TIME_STAMP}
 
     # Choose the retrieval method based on type
-    reference = retrieval(question, year)
+    reference = retrieval(question, year, author)
+    reference = reference.replace("\n", " ")
     # Update the question in the database with retrieval set to true and store the reference
     update = {"$set": {"retrieval": True, 'reference': reference}}
     question_collection.find_one_and_update(query, update)
 
-    print(reference)
     return
 
-    # Choose the answer generation model based on type
-    answer = await answerGeneration(type, question, reference)
-    # Update the question in the database with answerGeneration set to true, write the answer and set output to true
-    update = {"$set": {'answerGeneration': True, 'answer': answer, 'output': True}}
-    question_collection.find_one_and_update(query, update)
+    # # Choose the answer generation model based on type
+    # answer = answerGeneration(question, reference)
+    # # Update the question in the database with answerGeneration set to true, write the answer and set output to true
+    # update = {"$set": {'answerGeneration': True, 'answer': answer, 'output': True}}
+    # question_collection.find_one_and_update(query, update)

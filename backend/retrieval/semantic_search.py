@@ -1,29 +1,46 @@
 from pinecone import Pinecone
 from FlagEmbedding import FlagModel
 
+model = FlagModel('/Users/liuziwei/Desktop/NLP/QAsystem-NLPT-WS2023/backend/retrieval/bge_large_fin',
+                  query_instruction_for_retrieval="Represent this sentence for searching relevant passages:",
+                  use_fp16=True)
 
-def search_arxiv_texts(query):
-    model = FlagModel('/Users/liuziwei/Desktop/NLP/QAsystem-NLPT-WS2023/backend/retrieval/bge_large_fin',
-                      query_instruction_for_retrieval="Represent this sentence for searching relevant passages:",
-                      use_fp16=True)
+pc = Pinecone(api_key="621f7574-8c97-4f46-8c5e-186dd099d33b")
+index = pc.Index("bge-fin")
 
-    pc = Pinecone(api_key="621f7574-8c97-4f46-8c5e-186dd099d33b")
-    Index = pc.Index("bge-fin")
 
+def generate_year_range(start_year, end_year):
+    """Generate a list of years as strings from start_year to end_year."""
+    return [str(year) for year in range(int(start_year), int(end_year) + 1)]
+
+
+def search_arxiv_texts(query, year, authors=None):
     query_vector = model.encode_queries([query])[0].tolist()
 
-    response = Index.query(
+    # Initialize filters
+    filters = {}
+    if year:
+        start_year = year[0]
+        end_year = year[1]
+        years = generate_year_range(start_year, end_year)
+        filters['publishedDate'] = {
+            "$in": years
+        }
+    if authors:
+        if not isinstance(authors, list):
+            authors = [authors]
+        authors = [author.lower() for author in authors]
+        filters['authors'] = {
+            "$in": authors
+        }
+
+    response = index.query(
         vector=query_vector,
-        top_k=1,
-        include_metadata=True
+        top_k=3,
+        include_metadata=True,
+        filter=filters  # Apply filters to the query, including the author filter
     )
 
-    arxiv_texts = [str(match['metadata']['arxiv_text']) for match in response['matches']]
-    pmid = [int(match['metadata']['pmid']) for match in response['matches']]
-    # ans = {}
-    # for i in range(5):
-    #     ans[pmid[i]] = arxiv_texts[i]
+    arxiv_texts = [match['metadata']['arxiv_text'] for match in response['matches']]
 
-    return [pmid[0], arxiv_texts[0]]
-
-
+    return arxiv_texts

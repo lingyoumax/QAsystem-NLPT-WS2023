@@ -83,13 +83,18 @@ def query_pre_process(query):
 
 
 
-def weightBM25(query, df, df2, year=None):
+def weightBM25(query, df, df2, year=None, author=None):
     if year:
-        year0, year1 = map(int, year.split('-'))
+        [year0, year1] = year
         filtered_df = df[df['PubDate'] != 'unknown']
-        df_filtered = filtered_df[(filtered_df['PubDate'].astype(int) >= year0) & (filtered_df['PubDate'].astype(int) <= year1)]
+        df_filtered = filtered_df[(filtered_df['PubDate'].astype(int) >= int(year0)) & (filtered_df['PubDate'].astype(int) <= int(year1))]
     else:
         df_filtered = df
+
+    if author:
+        df_filtered = df_filtered[df_filtered['Authors'].str.contains(author, case=False, na=False)]
+
+
 
     texts = df_filtered['Abstract'].tolist()
     tokenized_texts = [doc.split() for doc in texts]
@@ -106,6 +111,7 @@ def weightBM25(query, df, df2, year=None):
     bm25_chunk = BM25(tokenized_texts)
 
     result_chunk = search(query, df_t, keywords, bm25_chunk, top_k=1)
+
 
     return result_chunk
 

@@ -1,10 +1,21 @@
 import asyncio
-from fastapi import FastAPI
+from fastapi import FastAPI, BackgroundTasks
+from starlette.middleware.cors import CORSMiddleware
+
 from mongodb import question_collection
-from QuestionModel import Question
+from QuestionModel import Question, TIME_STAMP_Model
 from process import process
 import uvicorn
+
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 
 @app.post("/sendQuestion")
@@ -12,26 +23,55 @@ async def root(input: Question):
     question = input.question
     TIME_STAMP = input.time_stamp
     year = input.year  # "1999-2010"
-    # Write to database with question, TIME_STAMP, and input set to true, others set to false
-    question_doc = {"question": question, "year": year.split('-'), "time_stamp": TIME_STAMP, "input": True,
-                    'retrieval': False, 'answerGeneration': False, 'output': False, 'reference': "", 'answer': ""}
-    question_collection.insert_one(question_doc)
-    asyncio.create_task(process(TIME_STAMP, question, year))
+    author = input.author
+    if year == '-':
+        year = ""
+    else:
+        year = year.split('-')
+    # 写入数据库
+    question_doc = {
+        "question": question,
+        "year": year,
+        "author": author,
+        "time_stamp": TIME_STAMP,
+        "input": True,
+        'retrieval': False,
+        'answerGeneration': False,
+        'output': False,
+        'reference': "",
+        'answer': ""
+    }
+    await question_collection.insert_one(question_doc)
+
+    # 将 process 函数添加为后台任务
+    asyncio.create_task(process(TIME_STAMP, question, year, author))
+
+    # 立即返回响应
     return {"message": "question input successful"}
 
 
-@app.get("/questionStatus/{TIME_STAMP}")
-async def getStatus(TIME_STAMP: str):
+@app.post("/questionStatus")
+async def getStatus(input: TIME_STAMP_Model):
+    # print(input.TIME_STAMP)
+    # return {'res': 'success', 'status': 111}
     # Query the database for various statuses based on TIME_STAMP and return them
-    question_status = await question_collection.find_one({"time_stamp": TIME_STAMP})
-    status = {'input': question_status.input,
-              'classification': question_status.classification,
-              'retrieval': question_status.retrieval,
-              'answerGenerating': question_status.answerGenerating,
-              'output': question_status.output
-              }
+    question_status = await question_collection.find_one({"time_stamp": input.TIME_STAMP})
 
-    return {'res': 'success', 'status': f'{status}'}
+    status = {'input': question_status['input'],
+              'retrieval': question_status['retrieval'],
+              'answerGenerating': question_status['answerGeneration'],
+              'output': question_status['output']
+                }
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)
+    return {'res': 'success', 'status': status}
+
+
+@app.post("/getAnswer")
+async def getAnswer(input: TIME_STAMP_Model):
+    question_status = await question_collection.find_one({"time_stamp": input.TIME_STAMP})
+    return {'res': 'success', 'answer': question_status['answer']}
+
+
+# if __name__ == "__main__":
+#     uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)
+# 运行 uvicorn main:app --reload
