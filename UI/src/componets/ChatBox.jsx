@@ -91,7 +91,7 @@ function ChatBox(){
         if (requestStatus) {
             intervalId = setInterval(async () => {
                 try {
-                    const data = await fetchStatusAPI(latest_question); // 假定这是你的 API 请求函数
+                    const data = await fetchStatusAPI(latest_question); 
                     if (data.res === 'success') {
                         if(data.status.retrieval){
                             setReference(data.status.reference)
@@ -113,7 +113,7 @@ function ChatBox(){
 
                         setStatus(data.status);
                         if (data.status.output) {
-                            setRequestStatus(false); // 如果有输出，则不再需要定期检查
+                            setRequestStatus(false); 
                             clearInterval(intervalId);
                         }
                     }
@@ -152,11 +152,11 @@ function ChatBox(){
         if (status.output) {
             fetchAnswer();
         }
-    }, [status.output]); // 当 status.output 变化时触发
+    }, [status.output]);
 
     useEffect(() => {
         if (boxRef.current) {
-            boxRef.current.scrollTop = boxRef.current.scrollHeight; // 滚动到底部
+            boxRef.current.scrollTop = boxRef.current.scrollHeight; 
         }
     }, [addLine]);
 

@@ -87,3 +87,35 @@
     border-radius: 0.3rem;
     padding: 0.2rem;
 }
+.filter{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 2rem;
+    gap: 6rem;
+    font-size: 1.1rem;
+}
+.pubdate{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.author{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.pubdate input{
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border-radius: 0.3rem;
+    padding: 0.2rem;
+    border: 1px solid green;
+}
+.author input{
+    border: 1px solid green;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border-radius: 0.3rem;
+    padding: 0.2rem;
+}
