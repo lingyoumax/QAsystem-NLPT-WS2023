@@ -5,35 +5,41 @@ from Answer_generation.qwen_generation_utils import make_context, decode_tokens,
 import random
 import gc
 
-def inference(instructions,model_name,adapter=None,response_num=1,batch_size=4,
-              temperature=None,top_p=None,repetition_penalty=1.1,top_k=None,
-              max_new_tokens=128,):
-    bnb_config=BitsAndBytesConfig(
-            load_in_4bit=True,
-            bnb_4bit_compute_dtype=torch.float16,
-            bnb_4bit_use_double_quant=True,
-            bnb_4bit_quant_type="nf4",
-            llm_int8_threshold=6.0,
-            llm_int8_has_fp16_weight=False,
-        )
-    print("SFT inference, inferecnt {} samples".format(len(instructions)))
-    
-    tokenizer= AutoTokenizer.from_pretrained(
+bnb_config=BitsAndBytesConfig(
+        load_in_4bit=True,
+        bnb_4bit_compute_dtype=torch.float16,
+        bnb_4bit_use_double_quant=True,
+        bnb_4bit_quant_type="nf4",
+        llm_int8_threshold=6.0,
+        llm_int8_has_fp16_weight=False,
+    )
+
+model_name = "Qwen/Qwen-7B-Chat"
+max_new_tokens = 128
+repetition_penalty = 1.1
+
+tokenizer= AutoTokenizer.from_pretrained(
             model_name,
             pad_token='<|extra_0|>',
             eos_token='<|endoftext|>',
             padding_side='left',
             trust_remote_code=True
             )
-    model = AutoModelForCausalLM.from_pretrained(model_name, pad_token_id=tokenizer.pad_token_id,trust_remote_code=True, quantization_config=bnb_config, device_map="auto").eval()
-    model.generation_config = GenerationConfig.from_pretrained(model_name, pad_token_id=tokenizer.pad_token_id)
-    model.generation_config.max_new_tokens=max_new_tokens
-    model.generation_config.repetition_penalty=repetition_penalty
-    print("initial model")
-    if adapter is not None:
-        model.load_adapter(adapter)
-        print("initial adapter")
-    
+
+model = AutoModelForCausalLM.from_pretrained(model_name, pad_token_id=tokenizer.pad_token_id,trust_remote_code=True, quantization_config=bnb_config, device_map="auto").eval()
+model.generation_config = GenerationConfig.from_pretrained(model_name, pad_token_id=tokenizer.pad_token_id)
+model.generation_config.max_new_tokens = max_new_tokens
+model.generation_config.repetition_penalty = repetition_penalty
+print("initial model")
+
+model.load_adapter('./Answer_generation/dpo_v1')
+print("initial adapter")
+
+
+def inference(instructions,response_num=1,batch_size=4,
+              temperature=None,top_p=None,top_k=None,
+              max_new_tokens=128):
+    global model
     result_instructions=[]
     for index in tqdm(range(0,len(instructions),batch_size)):
         start=index

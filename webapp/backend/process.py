@@ -35,10 +35,9 @@ def retrieval(question, year, author):
 # What are some challenges and limitations in using data mining techniques in healthcare?
 
 def answerGeneration(question, reference):
-    answer = inference(instructions=[{"instruction": reference, "input": question}], 
-        model_name="Qwen/Qwen-7B-Chat", adapter='Answer_generation/dpo_v1', 
+    answer = inference(instructions=[{"instruction": reference, "input": question}],
         batch_size=1, temperature=0.7, top_k=1,
-        top_p=0.2, repetition_penalty=1.1)
+        top_p=0.2)
     print(answer)
     return answer[0]['generated']
 

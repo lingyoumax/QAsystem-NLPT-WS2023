@@ -1,4 +1,4 @@
-.leftbox{
+.leftbox {
     max-width: 60%;
     padding: 0.7rem 1rem;
     background-color: #D8E0F5;
@@ -6,22 +6,17 @@
     border-radius: 1rem;
     position: relative;
 }
-.hoverBox {
-    position: absolute;
-    max-width: 25rem;
-    max-height: 25rem;
-    word-wrap: break-word; /* 确保单词在需要时可以断开来适应行的宽度 */
-    white-space: normal; /* 允许内容根据需要换行 */
 
-    /*position: fixed; !* 使用 fixed 以便它相对于视口定位 *!*/
-    background-color: #aeb8d2;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    display: none; /* 默认不显示，将在 JS 中处理显示逻辑 */
-    z-index: 10000;
-}
-
-
-.leftbox:hover .hoverBox {
-    display: block; /* 鼠标悬停时显示 */
+.reference {
+    max-width: 60%;
+    /*position: absolute;*/
+    bottom: -1rem;
+    white-space: pre-wrap;
+    left: 0;
+    background-color: #c4bdbd;
+    padding: 0.7rem 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    /*transform: translateY(1rem);*/
 }

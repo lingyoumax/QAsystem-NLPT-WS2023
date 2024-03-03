@@ -5,6 +5,8 @@ model = FlagModel('./retrieval/bge_large_fin',
                   query_instruction_for_retrieval="Represent this sentence for searching relevant passages:",
                   use_fp16=True)
 
+print("Model loaded successfully")
+
 pc = Pinecone(api_key="621f7574-8c97-4f46-8c5e-186dd099d33b")
 index = pc.Index("bge-fin")
 

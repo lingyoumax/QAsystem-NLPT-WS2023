@@ -1,0 +1,15 @@
+fastapi
+pydantic
+uvicorn[standard]
+motor
+pandas
+spacy
+scikit-learn
+yake
+pinecone-client
+FlagEmbedding
+tiktoken
+transformers_stream_generator
+einops
+peft
+bitsandbytes

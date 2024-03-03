@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./backend
+    container_name: backend
+    ports:
+      - 127.0.0.1:8000:8000
+    networks:
+      - backend_network
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+  ui:
+    build:
+      context: ./ui
+    container_name: ui
+    ports:
+      - 127.0.0.1:5173:5173
+    networks:
+      - backend_network
+
+networks:
+  backend_network:
+    driver: bridge

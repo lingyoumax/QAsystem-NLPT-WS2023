@@ -16,7 +16,7 @@ function ChatBox(){
     const [start_year, setStart_year] = useState("");
     const [end_year, setEnd_year] = useState("");
     const [author, setAuthor] = useState("");
-    const [reference, setReference] = useState(null);
+    const [reference, setReference] = useState("");
     const [status, setStatus] = useState({
         input: false,
         retrieval: false,
@@ -41,7 +41,7 @@ function ChatBox(){
         setInputValue(e.target.value);
     };
     const handleKeyDown = async (e) => {
-        if (e.key === 'Enter') { // 检查是否按下了回车键
+        if (e.key === 'Enter') {
             let temp_stamp = new Date()
             setLatest_question(temp_stamp)
             appendMessages({
@@ -58,8 +58,14 @@ function ChatBox(){
                 answerGenerating: false,
                 output: false,
             })
+            setStatus({
+                input: false,
+                retrieval: false,
+                answerGenerating: false,
+                output: false,
+            })
             try {
-                const data = await postQuestionAPI(inputValue.trim(), temp_stamp, start_year+"-"+end_year, author); // 假定这是你的 API 请求函数
+                const data = await postQuestionAPI(inputValue.trim(), temp_stamp, start_year+"-"+end_year, author);
                 if (data.message === 'question input successful') {
                     setProcessing({
                         input: false,
@@ -77,10 +83,8 @@ function ChatBox(){
                     setRequestStatus(true)
                 }
             } catch (error) {
-                console.error('数据获取失败：', error);
+                console.error('error：', error);
             }
-
-            // send post restful API to backend
             setInputValue('');
         }
     };
@@ -91,7 +95,7 @@ function ChatBox(){
         if (requestStatus) {
             intervalId = setInterval(async () => {
                 try {
-                    const data = await fetchStatusAPI(latest_question); 
+                    const data = await fetchStatusAPI(latest_question);
                     if (data.res === 'success') {
                         if(data.status.retrieval){
                             setReference(data.status.reference)
@@ -113,12 +117,12 @@ function ChatBox(){
 
                         setStatus(data.status);
                         if (data.status.output) {
-                            setRequestStatus(false); 
+                            setRequestStatus(false);
                             clearInterval(intervalId);
                         }
                     }
                 } catch (error) {
-                    console.error('数据获取失败：', error);
+                    console.error('error:：', error);
                 }
             }, 15000);
         }
@@ -133,8 +137,7 @@ function ChatBox(){
     useEffect(() => {
         async function fetchAnswer() {
             try {
-                const data = await fetchAnswerAPI(latest_question); // 假定这是另一个 API 请求函数
-                // console.log(data)
+                const data = await fetchAnswerAPI(latest_question);
                 if (data.res === 'success') {
                     setInputStatus(false)
                     appendMessages({
@@ -156,7 +159,7 @@ function ChatBox(){
 
     useEffect(() => {
         if (boxRef.current) {
-            boxRef.current.scrollTop = boxRef.current.scrollHeight; 
+            boxRef.current.scrollTop = boxRef.current.scrollHeight;
         }
     }, [addLine]);
 
