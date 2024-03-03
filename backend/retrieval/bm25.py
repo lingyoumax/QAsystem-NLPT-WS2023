@@ -93,8 +93,8 @@ def weightBM25(query, df, df2, year=None, author=None):
 
     if author:
         df_filtered = df_filtered[df_filtered['Authors'].str.contains(author, case=False, na=False)]
-
-
+        if df_filtered.empty:
+            df_filtered = df
 
     texts = df_filtered['Abstract'].tolist()
     tokenized_texts = [doc.split() for doc in texts]

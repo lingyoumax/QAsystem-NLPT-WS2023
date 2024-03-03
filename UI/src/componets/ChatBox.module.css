@@ -1,7 +1,7 @@
 .wrapper {
     height: 80vh;
     width: 80vw;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     position: absolute;
     top: 0;
     bottom: 0;
@@ -18,7 +18,7 @@
 .chatbox{
     height: 100%;
     width: 70%;
-    background-color: white;
+    background-color: #EDF5F8;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -36,18 +36,54 @@
     }
 }
 .input_question{
-    height: 5%;
-    border: 1px solid black;
+    height: 25%;
+    border: 1px solid #3EBDC1;
+
     border-bottom: 0;
     border-left: 0;
-    padding: 0.1rem 0.7rem;
+    padding: 0.5rem 0.7rem;
     font-size: 1rem;
+    background-color: #EDF5F8;
 }
 .progress{
     width: 30%;
     display: flex;
+    background-color: #86c3e5;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 4rem;
+    z-index: 100;
+}
+.filter{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 2rem;
+    gap: 6rem;
+    font-size: 1.1rem;
+}
+.pubdate{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.author{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.pubdate input{
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border-radius: 0.3rem;
+    padding: 0.2rem;
+    border: 1px solid green;
+}
+.author input{
+    border: 1px solid green;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border-radius: 0.3rem;
+    padding: 0.2rem;
 }

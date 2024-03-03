@@ -1,7 +1,7 @@
 from pinecone import Pinecone
 from FlagEmbedding import FlagModel
 
-model = FlagModel('/Users/liuziwei/Desktop/NLP/QAsystem-NLPT-WS2023/backend/retrieval/bge_large_fin',
+model = FlagModel('./retrieval/bge_large_fin',
                   query_instruction_for_retrieval="Represent this sentence for searching relevant passages:",
                   use_fp16=True)
 
