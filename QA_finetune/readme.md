@@ -6,17 +6,16 @@ Use the self instuct[^2] method to generate the data set using the QA seed libra
 Using the MoDS[^3] method to filter out higher quality datasets.
 
 ## 2.Model training
-### II. supervised fine-tuning(SFT folder)
+### I. supervised fine-tuning(SFT folder)
 - a.We used the enhanced dataset obtained earlier to accomplish this step of fine-tuning.
 - b.Quantization at model load due to resource issues
 - c.Compared to full fine-tuning, we use the adapter[^4] approach which is less memory intensive and more efficient.
-### III.Reward model fine-tuning(Reward folder)
+### II.Reward model fine-tuning(Reward folder)
 - a.Our reward model is based on the Qwen_SFT trained in the previous step to select the last layer of lm_head, and uses a new v_head layer (full linear) as the reward model.
 - b.In the construction of the data set, we used self instruct to construct a large number of questions, and then used Qwen_SFT to generate different answers based on random parameters such as temperature and top_p. Then use GPT3.5 as the reply scoring machine. So we have a training data set.
 - c.In addition, we use 8000 of full-hh-rlhf[^5] as an additional training data set.
 - d.For some other parameters, see the corresponding global_config.py.
-
-### V. Pipeline (Pipeline folder)
+### III. Pipeline (Pipeline folder)
 - a.RejectSampling[^7]
   - Here we use two training methods. First, we perform multiple inferences on the SFT model to obtain several responses, which are sent to the rm model for scoring. The response with the highest score for each question is selected as the answer to the question, and then fine-tuned again.
 - b.DPO[^8]
