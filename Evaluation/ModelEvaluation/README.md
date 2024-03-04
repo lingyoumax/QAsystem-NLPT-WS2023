@@ -1,0 +1,1 @@
+$r_{error}=(\{word\})/len(answer_{generate})$
