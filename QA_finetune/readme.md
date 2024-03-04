@@ -48,6 +48,19 @@ Using the MoDS[^3] method to filter out higher quality datasets.
   - reject_sampling can mainly complete 4 steps, self instruct generates questions, fine-tuning the model generates different responses, reward model generates the highest and lowest scores, and DPO fine-tuning
 ## 6.Deployment of models
 - **see other part**
+
+## 7.About train information
+see [link1](https://wandb.ai/yongwu_cs2024/huggingface?workspace=user-yongwu_cs2024) and [link2](https://wandb.ai/yongwu_cs2024/SFT_finetune?workspace=user-yongwu_cs2024)
+- link 1:Includes DPO training information, reward model training information, SFT v1, v2 training information
+- link 2:Only includes SFT v0 training information
+
+## 8. model info
+- [rm_v0](https://drive.google.com/drive/folders/1jpcBMJ_tisyFxn2j8qMjY3M4Nm98gUBu?usp=drive_link)
+- [sft_v0](https://drive.google.com/drive/folders/1L6feQcrPOoORwVS9j0UsujLYZbetOr6G?usp=drive_link)
+- [sft_v1](https://drive.google.com/drive/folders/1ByjLREqlIP0MloLf7XTIpqOr3hftZJNe?usp=sharing),based on rejecte sampling
+- [sft_v2](https://drive.google.com/drive/folders/1vbclF_GpOL-38-PZO5g1WSQyAGql1BW4?usp=sharing),based on rejecte sampling
+- [dpo_v0](https://drive.google.com/drive/folders/1C4vM7Ac2W1xBlw8Hk3xossJ7hbUzteH9?usp=sharing),based on DPO
+
 ## **Citation**:
 [^1]:```bibtex
     @article{qwen,
