@@ -1,0 +1,658 @@
+[
+    {
+        "input": "Why were popular paints and pigments in the nineteenth century highly toxic?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "What would cause stride scheduling to cause inefficiency in CPU operations?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "Why was the Kingdom of Asturias divided?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "Why was Taylor indicted by a special court ?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "Why did the Chinese ultimately fail in its counter offensives?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "Why boys are best over girls",
+        "type": "Causal Question"
+    },
+    {
+        "input": "Why was the Republic of Novgorod doing so well while the Kievan Rus declined?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "Why is it important to brush and floss your teeth everyday?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "What was ratified in 1773 in Prussia?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "Justify My Love reached which number in the US charts?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "How long did the person named \"president for life\" serve?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "Where are these ideas located in the Federalist Papers?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "When did Kerry earn a Silver Star?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "What percentage of voters voted against secession in Tennessee's February 1861 referendum?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "What type of glass products can be used for sending information?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "Which German state has the highest ratio of universities of technology to standard universities?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "What is the process called in which plants gather nutrients from the soil around their roots?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "Along with All-4-One, Boyz II Men, Rob Thomas, Christina Aguilera and Backstreet Boys, what 90s artists were notable in the pop/R&B genre?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "In what countries is Protestantism one of the most popular (but not THE most popular) religions?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "What future pope was made a cardinal by Paul VI on June 26, 1967?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "Def Leppard's album Hysteria churned out how many hit singles?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "What article, section, and clause of the Constitution requires U.S. presidents to be natural-born citizens?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "The large skilled English-speaking workforce of New Delhi has been able to attract what type of organizations to the city?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "In which country did the government respond with hostility to the Enlightenment, even imprisoning philosophes?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "What does Nuestra Senora del Sagrado Corazon mean?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "Which tariah is known as the Fivers?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "Kiss' double live album Alive! came out in what year?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "Where did the BBC continue broadcasting from in October of 1936?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "Where is the National Cowboy and Western Heritage Museum?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "Which is a bird or fish: Red snapper or Red kite",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "What was the result of the University Revolution in Argentina?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "I which church was Beyonce  a member and soloist  in the choir?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "Who declared war on Mexico in 1846?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "In what century did the Roman Empire achieve its greatest extent?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "How did Sidney Sheinberg feel about the film \"Amblin'\"",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "When the colors were first worn, what team did Barcelona play?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "Is Star Wars Science Fiction or Fantasy?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "What does the Everton club motto, \"Nil Satis Nisi Optimum,\" mean in English?",
+        "type": "Factoid-type Question"
+    },
+    {
+        "input": "Classify each of the following as a ridesharing or food delivery company: Doordash, Lyft, Wolt, Deliveroo, Bolt, Didi, Rappi",
+        "type": "List-type Question"
+    },
+    {
+        "input": "I'm putting together an exercise plan that needs to have both cardio and strength exercises, but I want to separate exercises into each category. Running, deadlifts, cycling, pushups, swimming, jump rope,  lunges and squats.",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Give me a list of the best true crime podcast to listen to",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Outside of the Kelly and Birkin bags, what are some of the other bags that Herm\u00e8s produces?",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Classify the following cartridge types by whether they are typically used in a pistol or a rifle: 9mm, .40 S&W, 5.56mm NATO, .45 ACP, 7.62mm NATO, 6.5mm Creedmoor, 6.5mm Grendel,  .357 Magnum",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Classify each of the following as either a brass or woodwind instrument: flute, clarinet, oboe, trombone, trumpet, and tuba.",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Identify which animal species is alive or extinct: Cape Lion, Javan Rhino",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Tell me which of these are brands of soap: Dove, Colgate, Palmolive, Ivory, Pearl Milling Co, Sofsoap, Dawn, Ethan",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Tell me which of these are types of desserts: flan, steak, tofu, broccoli, cookies, Cheetos, banana bread, ice cream, giblets, macaron, doughnut, a toothbrush",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Along with Israel, what countries' armies invaded Egypt in 1956?",
+        "type": "List-type Question"
+    },
+    {
+        "input": "I want to take a skiing vacation.  Which of the following countries would be suitable for doing this: Switzerland, Cyprus, Kiribati, the United States, Haiti.",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Classify each of the following as an American coffee shop chain or an American fast-food hamburger restaurant: Starbucks, Dunkin Donuts, McDonald's, In-N-Out, Dutch Bros, Coffee Bean & Tea Leaf, Burger King, Carl's Jr",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Classify these wild mushrooms as poisonous or edible: jack-o-lanterns, chanterelles, morels, death caps, destroying angels, lion's mane, false morels, maitake mushroom, oyster mushrooms",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Tell me whether these are names of soft drinks or coffee: Starbucks, Peet's, Blue Bottle, Coca-Cola, Sprite, Canada Dry, Pepsi",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Classify each of the follow weapons used by the US Military as a Fighter Jet, Rifle, Attack Helicopter, or Tank: M4 Carbine, F16 Falcon, M1 Abrams, F15 Eagle, AH64 Apache, M1903 Springfield, AH1 Cobra, M4 Sherman, F14 Tomcat, F86 Sabre",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Tell me whether these are assets or liabilities: Cash, Accounts Receivables, Deferred Commissions, Prepaid Expenses, Long-term Investments, Property Plant & Equipment, Operating lease right-of-use assets, Goodwill, Intangible Assets, Accounts Payable, Accrued Expenses, Operating Lease Liabilities, Deferred Revenue",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Identify which car manufacturer is Italian or American: Ferrari, GMC",
+        "type": "List-type Question"
+    },
+    {
+        "input": "If you are about to be admitted to the hospital overnight, categorize each of the following as either useful or not useful: a phone charger, a camping tent, reading glasses, a cruise ship, 10 bags of lumpy cement, a favorite blanket, and headphones, and a grand piano.",
+        "type": "List-type Question"
+    },
+    {
+        "input": "When going on a backcountry hike, which of the following are among the 10 essentials for a safe hike: a navigation device (such as a map or compass), a headlamp with extra batteries, a fire starter (such as matches or a lighter), extra food, extra water, a camera.",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Tell me which of the following items are trees and which ones are weeds: aspen, ash, chickweed, crabgrass, oak, almond, dandelion",
+        "type": "List-type Question"
+    },
+    {
+        "input": "What publication includes Christian AC with its format charts?",
+        "type": "List-type Question"
+    },
+    {
+        "input": "What are the top 10 US ski vacation destinations?",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Order these cars as either 'fast', 'slow' or 'dangerously fast'. A Doge Viper, Toyota 4Runner, Lamborghini Aventador, Chrysler Pacifica, Go-Kart, Lime Scooter, Porsche 911, Corvette",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Tell me whether these animals are herbivores or carnivores: deer, rabbits, cows, elephants, lions, wolves, polar bears, cheetahs",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Which of these items are clothing brands and which are banks: Levi\u2019s, Gap, Goldman Sachs,  Banana Republic, JP Morgan Chase, Seven, and Guess.",
+        "type": "List-type Question"
+    },
+    {
+        "input": "When talking about adjectives to describe proximity, which of these words fit into a 'near' category, and which are 'far'. Miles, close, neighbouring, distant, remote, adjacent, adjoining, outlying.",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Which of the following is useful for transportation: a glass of wine, a lamp, a train, an iced cube tray, a plane, a bicycle, an apple and a scooter.",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Classify each of the following as either a brass instrument or a woodwind instrument: flute, euphonium, bassoon, trumpet, clarinet, saxophone, tuba.",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Classify these as things you would want to wear for a rainy day or a very hot day: umbrella, ball cap, rain jacket, t-shirt, sunglasses, rain boots, flip-flops",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Classify each of the shapes as having 3, 4, or 5 sides: square, rectangle, pentagon, rhombus, triangle",
+        "type": "List-type Question"
+    },
+    {
+        "input": "Given this paragraph about Freddie Mercury, where was his last performance with Queen.",
+        "type": "Complex Question"
+    },
+    {
+        "input": "From the passage provided, extract when Susanna started as a principal.",
+        "type": "Complex Question"
+    },
+    {
+        "input": "Given a reference text about N.V. Virgin Express S.A., tell me its main hub and when it was founded.",
+        "type": "Complex Question"
+    },
+    {
+        "input": "From the passage provided, extract the union territories that encompass South India. Separate them with a comma.",
+        "type": "Complex Question"
+    },
+    {
+        "input": "What can Philosophy education be when we talk about the process?",
+        "type": "Complex Question"
+    },
+    {
+        "input": "Categorize the following lego sets into the appropriate themes.\nThemes: City, Creator, Technic, Star Wars, Super Heroes\nSets: Police station, Mobile crane with working arm, The Bat Cave, 3 in 1 deep sea animals, Obi Wan vs Anakin duel on Mustafar, The Naboo palace, UCS Slave 1, Aston Martin with 4 speed transmission, lunar mission, realistic laptop",
+        "type": "Complex Question"
+    },
+    {
+        "input": "Of the following, identify which are TV shows that originally aired in black-and-white, brands of toothpaste, and places where you can participate in water sports: the beach, The Honeymooners, I Love Lucy, Colgate, Florida, a river, The Munsters, Crest, Aquafresh, a lake, a pool, Rembrandt, The Addams Family",
+        "type": "Complex Question"
+    },
+    {
+        "input": "Draft an e-mail to a resort inquiring about information regarding a vow renewal celebration for my wife and me.",
+        "type": "Complex Question"
+    },
+    {
+        "input": "Imagine you are getting married and are attending a wedding cake tasting. Describe five different flavors you try, with combinations of both cake and frosting for each tasting. Pick one best flavor at the end of the five tastings.",
+        "type": "Complex Question"
+    },
+    {
+        "input": "Replace all years in the following passage with the century in which it occurred",
+        "type": "Complex Question"
+    },
+    {
+        "input": "Classify the following Greek philosophers by their schools of thought: Democritus, Anaximander, Protagoras, Epictetus, Chrysippus, Theano, Pythagorus and Heraclides.",
+        "type": "Complex Question"
+    },
+    {
+        "input": "given this reference text about 1891 Cypriot legislative election, What caused the non-Muslim seats to drop in 1886 to 10,030?",
+        "type": "Complex Question"
+    },
+    {
+        "input": "Assume the email format is {first_initial}{last_name}@somecompany.com\n\nWhat would the email addresses be for the following people?\nJon Doe\nRichard Smith\nTom Jenkins\nNick Parsons",
+        "type": "Complex Question"
+    },
+    {
+        "input": "Describe how you planned a father and son high school senior trip",
+        "type": "Complex Question"
+    },
+    {
+        "input": "Write an email to my friend who lives in Minneapolis to help convince them to move to Austin Texas.",
+        "type": "Complex Question"
+    },
+    {
+        "input": "how much did 700 tons of saltpetre go for in the contract negotiated by Banks in 1673",
+        "type": "Complex Question"
+    },
+    {
+        "input": "Why have perks like relaxed zoning rules and special parking privileges been allowed for churches?",
+        "type": "Complex Question"
+    },
+    {
+        "input": "Give me a list of recommendations to quickly heal from an achilles rupture surgery.",
+        "type": "Complex Question"
+    },
+    {
+        "input": "Where are \"exhibition match\" and \"friendly match\" not synonymous?",
+        "type": "Complex Question"
+    },
+    {
+        "input": "Was Jesus in the tomb exactly 72 hours?",
+        "type": "Complex Question"
+    },
+    {
+        "input": "What is the best stock to buy right now?",
+        "type": "Complex Question"
+    },
+    {
+        "input": "Using the given text, summarize the main features of the Fender Stratocaster",
+        "type": "Complex Question"
+    },
+    {
+        "input": "Have transfer fees been increasing over the past years?",
+        "type": "Complex Question"
+    },
+    {
+        "input": "I want to get in shape. What nutrition and exercise program should I follow?",
+        "type": "Complex Question"
+    },
+    {
+        "input": "Are geese an important part of the poultry industry?",
+        "type": "Confirmation Question"
+    },
+    {
+        "input": "Did all AV receivers carry the demodulator circuits necessary for LaserDiscs, or only high-end models?",
+        "type": "Confirmation Question"
+    },
+    {
+        "input": "Do Protestants celebrate Marian feasts or not?",
+        "type": "Confirmation Question"
+    },
+    {
+        "input": "can i run for president?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "How do you? How do you plant flowers",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "When is the best time of year to visit the Smoky Mountains?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "What stroller should I buy for my newborn baby?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "Why did industrialization lead to the production of highly toxic paints and pigments in the nineteenth century?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "What factors contribute to inefficiency in CPU operations under stride scheduling?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "What historical events or social factors led to the division of the Kingdom of Asturias?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "What circumstances led to Taylor's indictment by a special court?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "What were the key factors contributing to the failure of Chinese counter offensives?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "What did I eat that caused me stomach pain?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "Did raising the minimum wage cause a decrease in employment?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "What caused Americans to rebel against the British?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "How does rebranding of a product influence intent to purchase?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "How would expansion to a new market segment affect projected sales?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "What would be the impact of a price increase or decrease on customer loyalty?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "Why do certain individuals experience irrational fears?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "Why does the sentiment of love grow dim?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "What are the reasons for which methamphetamine causes dependency?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "Why do some individuals tell lies?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "Why do we feel hatred?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "Why do certain pets enjoy being caressed?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "What are the reasons for which cats display their feelings of happiness by purring or kneading?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "What are the reasons for which wolves howl?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "Why are Japanese citizens reluctant to get married? Why do so many Japanese people commit suicide?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "Why is North Korea so isolated from virtually any other country? Why is this country exhibiting more aggression towards other states?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "Why did the medieval black plague come to an end?",
+        "type": "Causal Question"
+    },
+    {
+        "input": "Where did Freddie Mercury have his final performance with Queen, according to the paragraph provided?",
+        "type": "Complex Question"
+    },
+    {
+        "input": "When did Susanna begin her tenure as a principal, as mentioned in the passage?",
+        "type": "Complex Question"
+    },
+    {
+        "input": "Can you list the union territories that comprise South India, as indicated in the passage? Please separate them with commas.",
+        "type": "Complex Question"
+    },
+    {
+        "input": "How would you define Philosophy education in terms of its process?",
+        "type": "Complex Question"
+    },
+    {
+        "input": "According to the passage, at what venue did Freddie Mercury last perform with Queen?",
+        "type": "Complex Question"
+    },
+    {
+        "input": "When did Susanna assume the role of principal, as detailed in the passage?",
+        "type": "Complex Question"
+    },
+    {
+        "input": "Are group 2 innate lymphoid cells ( ILC2s ) increased in chronic rhinosinusitis with nasal polyps or eosinophilia?",
+        "type": "Confirmation Question"
+    },
+    {
+        "input": "Is hidradenitis suppurativa a systemic disease with substantial comorbidity burden : a chart-verified case-control analysis?",
+        "type": "Confirmation Question"
+    },
+    {
+        "input": "Does reference range for serum and salivary testosterone in young men of Mediterranean region?",
+        "type": "Confirmation Question"
+    },
+    {
+        "input": "Are [ Higher nitric oxide levels associated with disease activity in Egyptian rheumatoid arthritis patients ]?",
+        "type": "Confirmation Question"
+    },
+    {
+        "input": "Are routine preoperative restaging CTs after neoadjuvant chemoradiation for locally advanced rectal cancer low yield : a retrospective case study?",
+        "type": "Confirmation Question"
+    },
+    {
+        "input": "Do two decades of British newspaper coverage regarding attempt cardiopulmonary resuscitation decisions : Lessons for clinicians?",
+        "type": "Confirmation Question"
+    },
+    {
+        "input": "Is epileptic focus localization based on resting state interictal MEG recordings feasible irrespective of the presence or absence of spikes?",
+        "type": "Confirmation Question"
+    },
+    {
+        "input": "Is \u03b4Np63 expression a protective factor of progression in clinical high grade T1 bladder cancer?",
+        "type": "Confirmation Question"
+    },
+    {
+        "input": "Are low serum levels of vitamin D associated with post-stroke depression?",
+        "type": "Confirmation Question"
+    },
+    {
+        "input": "Are autoimmune features associated with chronic antibiotic-refractory pouchitis?",
+        "type": "Confirmation Question"
+    },
+    {
+        "input": "Do [ Clinical study on continuous plasma filtration absorption treatment for burn sepsis ]?",
+        "type": "Confirmation Question"
+    },
+    {
+        "input": "Are successional changes in the chicken cecal microbiome during 42 days of growth independent of organic acid feed additives?",
+        "type": "Confirmation Question"
+    },
+    {
+        "input": "What harsh truths do you prefer to ignore?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "Is free will real or just an illusion?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "Is there a meaning to life? If so, what is it?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "Where is the line between art and not art?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "What should be the goal of humanity?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "Does fate exist? If so, do we have free will?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "What does it mean to live a good life?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "Why do we dream?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "Where does your self-worth come from?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "How will humans as a species go extinct?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "Is intelligence or wisdom more useful?Which of your beliefs are justified and which ones aren\u2019t?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "What do you contribute back to society?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "What are you going to do with the one life you have?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "Is it more important to help yourself, help your family, help your society, or help the world?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "What life-altering things should every human ideally get to experience at least once in their lives?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "Why don\u2019t we as a species take more advantage of the fact that we have almost infinite knowledge available to us?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "What two questions would you ask to get the most information about who a person truly is?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "Some people believe that if life has no purpose, then there is no reason for living. While others think that if life has no purpose, that frees a person to find/create and follow their own personal purpose. Which is a more valid point of view or are they both equally valid?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "Does absolute power corrupt absolutely?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "Why do we judge ourselves by our intentions but judge others by their actions?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "What activities cause you to feel like you are living life to the fullest?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "Does knowledge have intrinsic value or does it need to have a practical use to have value?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "Is a life that focuses on avoiding pain and seeking out pleasure a good and worthwhile life? Why or why not?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "Does jealously have value in driving humans to improve themselves or is it a purely negative emotion?",
+        "type": "Hypothetical Question"
+    },
+    {
+        "input": "What percentage of your life do you feel truly alive? When do you feel that way? How can you feel that way more often?",
+        "type": "Hypothetical Question"
+    }
+]
