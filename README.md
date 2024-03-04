@@ -15,9 +15,6 @@ This section provides an overview of the project's directory structure and expla
 
 ### Evaluation
 The `Evaluation` folder contains all the necessary components for evaluating the performance of the project's Dataset, Retrieval and Question Answering segments.
-- **DataEvaluation:** This subfolder contains the datasets used in our project and the code used for analyzing them.
-- **ModelEvaluation:** This folder contains the data required for model operation and the results they produce, as well as the code and analysis results for analyzing model results.
-- **RetrievalEvaluation:** 
 
 ### Meetings
 The `Meetings` folder serves as a repository for meetings and discussions.
