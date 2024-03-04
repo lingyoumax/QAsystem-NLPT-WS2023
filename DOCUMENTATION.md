@@ -1,12 +1,12 @@
 # QAsystem-NLPT
 
-### Natural Language Processing with Transformers Project
+## Natural Language Processing with Transformers Project
 
-##### **Key Information**
+### Key Information
 
 Title: QAsystem-NLPT
 
-**Team Members:**
+### Team Members
 
 Guangdeng Liang, 3769325, Data and computer science (GitHub: Gorden-GitHub)
 
@@ -16,7 +16,7 @@ Yong Wu, 3770613，Data and computer science (Github:yongwu_cs)
 
 Ziwei Liu, 3766789, Data and computer science (GitHub: ZiweiLiu0908)
 
-**Mail Addresses:**
+### Mail Addresses
 
 [guangdeng.liang@stud.uni-heidelberg.de](mailto:guangdeng.liang@stud.uni-heidelberg.de)
 
@@ -26,34 +26,27 @@ yong.wu@stud.uni-heidelberg.de
 
 ZiweiLiu0908@gmail.com
 
-**Member Contribution:** - 
+### Member Contribution
 
-###### Guangdeng Liang
+#### Guangdeng Liang
 
 Text_retrieval, Data preprocessing, Retrieval evaluation, Backend, Integration and Docker Deployment 
 
-###### Ye Tao   
+#### Ye Tao   
 
 Dataset generation，Model evaluation, Dataset evaluation - 
 
-###### Yong Wu  
+#### Yong Wu  
 
 Dataset generation, Dataset augmentation, QA finetune 
 
-###### Ziwei Liu 
+#### Ziwei Liu 
 
 Data Acquisition, Text_retrieval, Backend, Frontend, Retrieval evaluation
 
-**Advisor:**
+### Advisor
 
 Satya Almasian
-
-
-
-**Anti-plagiarism Confirmation:**
-
-
-
 
 
 
@@ -70,9 +63,7 @@ To address the challenges of non-standard training data and limited resources in
 
 The report is structured to give a thorough overview of our RAG System, including a review of related work, our methodologies, experimental setup, evaluation methods, results, and analysis. We conclude with our contributions to the field and future research directions for retrieval-augmented systems.
 
-
-
-## **Related Work**
+## Related Work
 
 The landscape of information retrieval and answer generation has been significantly shaped by various pioneering works, each contributing to the evolution of methodologies and systems tailored for enhanced understanding and processing of natural language queries. Our approach draws inspiration from and seeks to advance beyond the foundational principles laid out in these seminal studies.
 
@@ -85,11 +76,11 @@ OpenAI's standardized process for large model fine-tuning, which encompasses sup
 
 What distinguishes our work is the innovative application of a hierarchical query mechanism that first amplifies the importance of key terms in the query and then processes it through the BM25 algorithm. This adaptation, inspired by work on keyword amplification in query reconstruction [^15], significantly improves the accuracy of the retrieval phase. Additionally, our unique integration of PRF with semantic and lexicon search strategies in a new system architecture further improves the accuracy of retrieved information and addresses limitations observed in previous systems where either strategy was applied alone. In addition, the process of self instruct has been modified to make it more suitable for our closed QA tasks. And the rejection sampling method of llama2 is introduced into the openAI training process and DPO is used instead of PPO as the last step of reinforcement learning training, so that individuals can complete the entire training process.
 
-## **Methods/Approach** 
+## Methods
 
-### **Text Retrieval:**
+### Text Retrieval
 
-#### Semantic Search: 
+#### Semantic Search
 
 ##### Chunking Methods
 
@@ -121,15 +112,7 @@ $$
 Score(D, Q) = \sum_{i=1}^{n} IDF(q_i) \cdot \frac{f(q_i, D) \cdot (k_1 + 1)}{f(q_i, D) + k_1 \cdot (1 - b + b \cdot \frac{|D|}{avgdl})}
 $$
 
-Where: f(q_i, D) is q_i's term frequency in the document D,
-
-|D| is the length of the document D,
-
-avgdl is the average document length in the text collection,
-
-IDF(q_i) is the inverse document frequency of the term q_i,
-
-k_1 and b are free parameters, usually chosen, in absence of advanced optimization, as k_1 ∈ [1.2, 2.0] and b = 0.75.
+Where: $f(q_i, D)$ is $q_i$'s term frequency in the document D, $|D|$ is the length of the document D, $avgdl$ is the average document length in the text collection, $IDF(q_i)$ is the inverse document frequency of the term $q_i$, $k_1$ and $b$ are free parameters, usually chosen, in absence of advanced optimization, as $k_1 ∈ [1.2, 2.0]$ and $b = 0.75$.
 
 ##### **Our Approach:**
 
@@ -187,7 +170,7 @@ To solve this problem, we simplified the original self instruct process and adju
 
 Specifically, it includes the following steps:
 
-1. Construct the seed data setConsidering that the quality of question generation directly affects the effectiveness of the entire dataset, we first set out to construct a high-quality seed dataset. To this end, we use two QA datasets released on hugging face: [SQuAD2]([The Stanford Question Answering Dataset (rajpurkar.github.io)](https://rajpurkar.github.io/SQuAD-explorer/)) and [databricks-dolly]([databricks/databricks-dolly-15k · Datasets at Hugging Face](https://huggingface.co/datasets/databricks/databricks-dolly-15k)) as the basis. By using the [bert-base-uncased]([google-bert/bert-base-uncased · Hugging Face](https://huggingface.co/google-bert/bert-base-uncased)) model to encode the questions in these datasets into sentence embeddings, we selected the top 2000 questions with the farthest sentence embeddings as the preliminary screening results. Subsequently, we used our [self-trained question type classifier]([QAsystem-NLPT-WS2023/Question_type at main · lingyoumax/QAsystem-NLPT-WS2023 (github.com)](https://github.com/lingyoumax/QAsystem-NLPT-WS2023/tree/main/Question_type)) to select 30 representative seed questions from each category, resulting in 164 seed questions. It is worth noting that because there are relatively few variations of Confirmation Questions, the number of seed questions we selected in this category is less than 30.
+1. Construct the seed data setConsidering that the quality of question generation directly affects the effectiveness of the entire dataset, we first set out to construct a high-quality seed dataset. To this end, we use two QA datasets released on hugging face: [SQuAD2](https://rajpurkar.github.io/SQuAD-explorer/) and [databricks-dolly](https://huggingface.co/datasets/databricks/databricks-dolly-15k) as the basis. By using the [bert-base-uncased](https://huggingface.co/google-bert/bert-base-uncased) model to encode the questions in these datasets into sentence embeddings, we selected the top 2000 questions with the farthest sentence embeddings as the preliminary screening results. Subsequently, we used our [self-trained question type classifier](https://github.com/lingyoumax/QAsystem-NLPT-WS2023/tree/main/Question_type) to select 30 representative seed questions from each category, resulting in 164 seed questions. It is worth noting that because there are relatively few variations of Confirmation Questions, the number of seed questions we selected in this category is less than 30.
 
 2. Template sampling structure and problem screeningIn this step, we decide the composition of the template based on the presence or absence of newly generated questions. If there are no newly generated questions, we select 8 from the seed questions as templates; if there are, we select 6 from the seed questions and 2 from the newly generated questions. Then, one or several semantically segmented texts are selected as content to generate fine-grained and coarse-grained problems. We set up to generate two questions for each text, so that an abstract can generate approximately six to eight questions. Newly generated questions need to be further screened, first by calculating the Rouge value[^17] with the existing question set to exclude similar questions (the threshold is set to 0.7), and secondly by format filtering to ensure that the questions are content-based and formatted correctly.
 
@@ -203,7 +186,7 @@ The MoDS method is not only simple and efficient, but also significantly improve
 
 In our MoDS approach, we take three key steps to optimize the training dataset required for SFT, aiming to balance data quality and diversity, as well as enhance dataset coverage. Specific steps are as follows:
 
-1. Selection of high-quality answersFirst, we use [reward-model-deberta-v3-large-v2]([OpenAssistant/reward-model-deberta-v3-large-v2 · Hugging Face](https://huggingface.co/OpenAssistant/reward-model-deberta-v3-large-v2)) to score the answers in the data set and filter out the answers with a score higher than 0 as high-quality data. This step ensures that the answers contained in the selected data set are of high quality and provides a solid foundation for model training.
+1. Selection of high-quality answersFirst, we use [reward-model-deberta-v3-large-v2](https://huggingface.co/OpenAssistant/reward-model-deberta-v3-large-v2) to score the answers in the data set and filter out the answers with a score higher than 0 as high-quality data. This step ensures that the answers contained in the selected data set are of high quality and provides a solid foundation for model training.
 
 2. Diverse data selection for seed instructionsAfter obtaining high-quality answers, we obtain the embedding vectors of sentences through the bert-base-uncased model, and use a greedy search method to select the top 2000 instances with the most diverse vector representations to form a diverse data set. This step aims to increase the coverage and diversity of the data set and improve the model's generalization ability to different types of data.
 
@@ -213,11 +196,11 @@ In our MoDS approach, we take three key steps to optimize the training dataset r
 
 ##### **Base model** 
 
-After comprehensively considering our training resources, data set size, training time and other limiting factors, we determined that the maximum size of the training model is 7B parameters. For our closed QA task, which involves answering a question after retrieving relevant text, this process places specific demands on the model's ability to handle context length. Based on these considerations, we chose Qwen-7B-Chat as the basic model, whose context length can reach 8192[w5]. Not only did this model accommodate our hardware and data scale constraints, but it was designed and optimized with the need for longer context processing in mind, making it ideal for performing our closed-loop question answering tasks.
+After comprehensively considering our training resources, data set size, training time and other limiting factors, we determined that the maximum size of the training model is 7B parameters. For our closed QA task, which involves answering a question after retrieving relevant text, this process places specific demands on the model's ability to handle context length. Based on these considerations, we chose Qwen-7B-Chat as the basic model, whose context length can reach 8192[^7]. Not only did this model accommodate our hardware and data scale constraints, but it was designed and optimized with the need for longer context processing in mind, making it ideal for performing our closed-loop question answering tasks.
 
 ![qwen](./images/qwen.jpg)
 
-Qwen adopts an improved version of Transformer architecture. Specifically, the training method of the recently open source large language model LLaMA is adopted.
+Qwen adopts an improved version of Transformer architecture. Specifically, the training method of the recently open source large language model LLaMA[^20] is adopted.
 
 ##### **QLoRA**
 
@@ -274,7 +257,7 @@ Data preprocessing: First, adjust the "chosen" and "rejected" sequences to the s
 
 ##### Loss calculation
 
-Different from the previous output of calculating the probability of each position, the output of this model is the value of the sequence. The loss is calculated using the following formula, the value in the middle from the first inconsistent position of the two sequences to the padding position as the end will be selected as the score:
+Different from the previous output of calculating the probability of each position, the output of this model is the value of the sequence. The loss is calculated using the following formula, the value in the middle from the first inconsistent position of the two sequences to the padding position as the end will be selected as the score: 
 
 $$
 loss=-mean(logsigmoid(score_1-score_2))
@@ -300,7 +283,7 @@ This process not only optimizes the quality of answers, but also continuously im
 
 However, due to time reasons, this step was not fully iterated and only iterated to SFT_v2 and rm_v0.
 
-##### **DPO**
+##### [DPO](https://github.com/huggingface/trl)
 
 After constructing the training data set using the rejection sampling method, we adopted the DPO method to further fine-tune the learning process to make the answers generated by the model closer to high-quality human answers. The main reason for choosing DPO instead of PPO is that DPO is more economical in resource consumption. Its core advantage is to increase the logarithmic probability difference between the preferred answer (chosen) and the inferior answer (rejected). The content of this part mainly focuses on two core parts: the construction of the data set and the definition of the loss function.
 
@@ -372,7 +355,7 @@ To efficiently gather the required data, we utilized [Entrez Direct](https://www
 
 **Methodological Alignment**: Followed the structured approach and best practices as recommended in the FlagEmbedding fine-tuning examples for processing and preparing the dataset. 
 
-**Extraction and Transformation**: Questions and answers were extracted from the Initial Question-Answer Pairs Dataset and transformed into a format suitable for embedding model training, including pairing questions with relevant text passages. - 
+**Extraction and Transformation**: Questions and answers were extracted from the Initial Question-Answer Pairs Dataset and transformed into a format suitable for embedding model training, including pairing questions with relevant text passages.
 
 **Quality Filtering**: Employed a rigorous quality filtering process to ensure the inclusion of only high-quality, relevant question-answer pairs, maintaining the integrity of the model training process. 
 
@@ -524,13 +507,13 @@ In order to measure the correctness of the model's answers, we will use the answ
 #### Safety Score:
 
 "Toxic responses" is a common phenomenon where natural language processing (NLP) models, such as chatbots or text generation models, produce harmful, inappropriate, or offensive content during text generation. These responses can include discriminatory speech, hate speech, misleading information, insulting language, or any other form of negative content. Toxic responses may arise due to biases or undesirable information present in the model's training data, as machine learning models tend to learn and replicate the patterns and preferences found within their training datasets. So ensuring the safety of the model to users is very important. 
-We used the [reward-model-deberta-v3-large-v2](https://huggingface.co/manueldeprada/FactCC)) model from Hugging Face to aid in assessing the safety of our model. It scores pairs of questions fed into the model and the answers produced by the model, with question-answer pairs exhibiting fewer toxic responses receiving higher scores. The average score of all question-answer pairs obtained after testing the model with a dataset is considered the safety score of the model. The process of this evaluation method is shown in the following figure.
+We used the [reward-model-deberta-v3-large-v2](https://huggingface.co/manueldeprada/FactCC) model from Hugging Face to aid in assessing the safety of our model. It scores pairs of questions fed into the model and the answers produced by the model, with question-answer pairs exhibiting fewer toxic responses receiving higher scores. The average score of all question-answer pairs obtained after testing the model with a dataset is considered the safety score of the model. The process of this evaluation method is shown in the following figure.
 
 ![8](./images/8.jpg)
 
 #### Factual Consistency Score
 
-In the field of natural language processing (NLP), especially in tasks such as text generation, summarization, or question-answering systems, "factual consistency" is paramount. It measures the extent to which the generated text or provided answers correspond to the facts presented in the source material or real-world knowledge. Assessing a model's factual consistency is crucial for ensuring the credibility and integrity of information, and it also enhances users' trust in the model. In our model, an important task is to verify whether the answers generated by the model can find concrete evidence in the reference material. If this task were to be done manually, it would not only be time-consuming but also challenging to quantify this metric objectively due to human evaluators' biases and subjectivity. Therefore, we have employed the FactCC model[^20] from the Hugging Face platform. This model is capable of scoring the reference content input to the model and the answers it generates, with higher scores indicating greater consistency between the two. The average score of all reference-answer pairs constitutes the factual consistency score of the model. The process of this evaluation method is shown in the following figure.
+In the field of natural language processing (NLP), especially in tasks such as text generation, summarization, or question-answering systems, "factual consistency" is paramount. It measures the extent to which the generated text or provided answers correspond to the facts presented in the source material or real-world knowledge. Assessing a model's factual consistency is crucial for ensuring the credibility and integrity of information, and it also enhances users' trust in the model. In our model, an important task is to verify whether the answers generated by the model can find concrete evidence in the reference material. If this task were to be done manually, it would not only be time-consuming but also challenging to quantify this metric objectively due to human evaluators' biases and subjectivity. Therefore, we have employed the FactCC model[^19] from the Hugging Face platform. This model is capable of scoring the reference content input to the model and the answers it generates, with higher scores indicating greater consistency between the two. The average score of all reference-answer pairs constitutes the factual consistency score of the model. The process of this evaluation method is shown in the following figure.
 
 ![9](./images/9.jpg)
 
@@ -578,7 +561,9 @@ For the initial search, we only use the top1 match abstract from Hierarchical Se
 
 ### **Answer Generation:** 
 
-Self instruct process:Key parameters:
+#### Self instruct process:
+
+Key parameters:
 
 **Engine**: GPT-3.5-turbo-instruct or qwen-max-1201
 
@@ -592,9 +577,10 @@ Other information:
 
 **Environment**: 3060 laptop, 6GB
 
-**time**: 2000 questions, qwen-max-1201~4h, GPT3.5~30 min
-
-**MoDS:**Key parameters:
+**time**: 2000 questions, qwen-max-1201:4h, GPT3.5:30 min
+ 
+#### MoDS:
+Key parameters:
 
 **Model_name**:The model used to convert embedding.
 
@@ -606,7 +592,11 @@ Other information:
 
 **Argument_threshold**: default 0, select data selection parameters that do not diversify the data but perform fine-tuning on high-quality data with a score below the threshold.
 
-**SFT_train:**Key parameters: **model_name** the path of base model or name in hugging face.
+#### SFT_train:
+
+Key parameters:   
+
+**model_name** the path of base model or name in hugging face.
 
 **Adapter**: default None, If it is None, it indicates that an adapter is initialized and the path is specified, and the lora file for the path will be loaded.
 
@@ -617,7 +607,9 @@ Other information:
 **Environment**: 4090, 24GB
 
 **time**: about 1h
-RM_train:Key parameters:
+#### RM_train:  
+
+Key parameters:
 
 **model_name:** the path of the base model or name in the hugging face.
 
@@ -630,14 +622,20 @@ Other information:
 **Environment**: 4090, 24GB
 
 **time**: about 1h
-Reject_sampleKey parameters:finetune_config:All parameters applicable to pipeline.Finetune_steps: default [1,2,3,4]，1-self instruct, 2-generate response, 3-score and choose highest score, 4-SFT_traingenerate response parameters: The first temperature and top_p are set to 0.7 and 0.2 respectively to generate a more stable answer, and subsequent other answers are set to a uniformly distributed random number from 0 to 1,response num=5.SFT_train parameters: learning_rate=1e-4, per_device_train_batch_size=24, num_train_epochs=2
+#### Reject_sample
+
+Key parameters:  
+
+finetune_config:All parameters applicable to pipeline.Finetune_steps: default [1,2,3,4]，1-self instruct, 2-generate response, 3-score and choose highest score, 4-SFT_traingenerate response parameters: The first temperature and top_p are set to 0.7 and 0.2 respectively to generate a more stable answer, and subsequent other answers are set to a uniformly distributed random number from 0 to 1,response num=5.SFT_train parameters: learning_rate=1e-4, per_device_train_batch_size=24, num_train_epochs=2
 
 Other information:
 
 **Environment**: 4090, 24GB
 
 **time**: about 7h for 2000 train samples
-DPOKey parameters:finetune_config:All parameters applicable to pipeline.Finetune_steps: default [1,2,3,4]，1-self instruct, 2-generate response, 3-score and choose pairs answers, 4-DPO_traingenerate response parameters: The first temperature and top_p are set to 0.7 and 0.2 respectively to generate a more stable answer, and subsequent other answers are set to a uniformly distributed random number from 0 to 1, response_num=2.DPO_train parameters: learning_rate=1e-4, per_device_train_batch_size=12, num_train_epochs=2
+#### DPO 
+Key parameters:  
+finetune_config:All parameters applicable to pipeline.Finetune_steps: default [1,2,3,4]，1-self instruct, 2-generate response, 3-score and choose pairs answers, 4-DPO_traingenerate response parameters: The first temperature and top_p are set to 0.7 and 0.2 respectively to generate a more stable answer, and subsequent other answers are set to a uniformly distributed random number from 0 to 1, response_num=2.DPO_train parameters: learning_rate=1e-4, per_device_train_batch_size=12, num_train_epochs=2
 
 Other information:
 
@@ -715,27 +713,45 @@ These future directions aim to address current limitations and propel our resear
 
 ## **Reference**
 
-[^1]:Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., Küttler, H., Lewis, M., Yih, W., Rocktäschel, T., Riedel, S., & Kiela, D. (2020). Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. In Advances in Neural Information Processing Systems 33 (NeurIPS 2020).
-[^2]:Robertson, S. E., Walker, S., Jones, S., Hancock-Beaulieu, M. M., & Gatford, M. (1994). Okapi at TREC-3. In Proceedings of the 3rd Text Retrieval Conference (TREC-3).
-[^3]: Wang, Y., Kordi, Y., Mishra, S., Liu, A., Smith, N. A., Khashabi, D., & Hajishirzi, H. (2022). Self-instruct: Aligning language model with self generated instructions. arXiv preprint arXiv:2212.10560
-[^4]:Du, Q., Zong, C., & Zhang, J. (2023). Mods: Model-oriented data selection for instruction tuning. arXiv preprint arXiv:2311.15653.
-[^5]: Can foundation models label data like humans? [huggingface.co](https://huggingface.co/blog/open-llm-leaderboard-rlhf)
-[^6]:Dettmers, T., Pagnoni, A., Holtzman, A., & Zettlemoyer, L. (2024). Qlora: Efficient finetuning of quantized llms. Advances in Neural Information Processing Systems, 36.
-[^7]:Bai, J., Bai, S., Chu, Y., Cui, Z., Dang, K., Deng, X., ... & Zhu, T. (2023). Qwen technical report. arXiv preprint arXiv:2309.16609.
-[^8]: Li, Z., Li, X., Liu, Y., Xie, H., Li, J., Wang, F. L., ... & Zhong, X. (2023). Label supervised llama finetuning. arXiv preprint arXiv:2310.01208.
-[^9]:Rafailov, R., Sharma, A., Mitchell, E., Manning, C. D., Ermon, S., & Finn, C. (2024). Direct preference optimization: Your language model is secretly a reward model. Advances in Neural Information Processing Systems, 36.
-[^10]:Lavrenko, V., & Croft, W. B. (2001). Relevance-based language models. In Proceedings of the 24th annual international ACM SIGIR conference on Research and development in information retrieval.
-[^11]:Devlin, J., Chang, M. W., Lee, K., & Toutanova, K. (2018). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. In Proceedings of NAACL-HLT 2019.
-[^12]:Lewis, P., Oguz, B., Rinott, R., Riedel, S., & Schwenk, D. (2020). Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. In Proceedings of NeurIPS 2020.
-[^13]: Devlin, J., Chang, M. W., Lee, K., & Toutanova, K. (2018). Bert: Pre-training of deep bidirectional transformers for language understanding. arXiv preprint arXiv:1810.04805.
-[^14]:Radford, A., Wu, J., Child, R., Luan, D., Amodei, D., & Sutskever, I. (2019). Language models are unsupervised multitask learners. OpenAI blog, 1(8), 9.
-[^15]:Carpineto, C., & Romano, G. (2012). A survey of automatic query expansion in information retrieval. ACM Computing Surveys (CSUR), 44(1), 1-50.
-[^16]:Schulman, J., Wolski, F., Dhariwal, P., Radford, A., & Klimov, O. (2017). Proximal policy optimization algorithms. arXiv preprint arXiv:1707.06347.
-[^17]:Lin, C. Y., & Och, F. J. (2004, June). Looking for a few good metrics: ROUGE and its evaluation. In Ntcir workshop.
-[^18]:Zhang, T., Kishore, V., Wu, F., Weinberger, K. Q., & Artzi, Y. (2019). Bertscore: Evaluating text generation with bert. arXiv preprint arXiv:1904.09675.
+[^1]:Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., Küttler, H., Lewis, M., Yih, W., Rocktäschel, T., Riedel, S., & Kiela, D. (2020). Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. In Advances in Neural Information Processing Systems 33 (NeurIPS 2020).  
+
+[^2]:Robertson, S. E., Walker, S., Jones, S., Hancock-Beaulieu, M. M., & Gatford, M. (1994). Okapi at TREC-3. In Proceedings of the 3rd Text Retrieval Conference (TREC-3).  
+
+[^3]: Wang, Y., Kordi, Y., Mishra, S., Liu, A., Smith, N. A., Khashabi, D., & Hajishirzi, H. (2022). Self-instruct: Aligning language model with self generated instructions. arXiv preprint arXiv:2212.10560  
+
+[^4]:Du, Q., Zong, C., & Zhang, J. (2023). Mods: Model-oriented data selection for instruction tuning. arXiv preprint arXiv:2311.15653.  
+
+[^5]: Can foundation models label data like humans? [huggingface.co](https://huggingface.co/blog/open-llm-leaderboard-rlhf)  
+
+[^6]:Dettmers, T., Pagnoni, A., Holtzman, A., & Zettlemoyer, L. (2024). Qlora: Efficient finetuning of quantized llms. Advances in Neural Information Processing Systems, 36.  
+
+[^7]:Bai, J., Bai, S., Chu, Y., Cui, Z., Dang, K., Deng, X., ... & Zhu, T. (2023). Qwen technical report. arXiv preprint arXiv:2309.16609.  
+
+[^8]: Li, Z., Li, X., Liu, Y., Xie, H., Li, J., Wang, F. L., ... & Zhong, X. (2023). Label supervised llama finetuning. arXiv preprint arXiv:2310.01208.  
+
+[^9]:Rafailov, R., Sharma, A., Mitchell, E., Manning, C. D., Ermon, S., & Finn, C. (2024). Direct preference optimization: Your language model is secretly a reward model. Advances in Neural Information Processing Systems, 36.  
+
+[^10]:Lavrenko, V., & Croft, W. B. (2001). Relevance-based language models. In Proceedings of the 24th annual international ACM SIGIR conference on Research and development in information retrieval.  
+
+[^11]:Devlin, J., Chang, M. W., Lee, K., & Toutanova, K. (2018). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. In Proceedings of NAACL-HLT 2019.  
+
+[^12]:Lewis, P., Oguz, B., Rinott, R., Riedel, S., & Schwenk, D. (2020). Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. In Proceedings of NeurIPS 2020.  
+
+[^13]: Devlin, J., Chang, M. W., Lee, K., & Toutanova, K. (2018). Bert: Pre-training of deep bidirectional transformers for language understanding. arXiv preprint arXiv:1810.04805.  
+
+[^14]:Radford, A., Wu, J., Child, R., Luan, D., Amodei, D., & Sutskever, I. (2019). Language models are unsupervised multitask learners. OpenAI blog, 1(8), 9.  
+
+[^15]:Carpineto, C., & Romano, G. (2012). A survey of automatic query expansion in information retrieval. ACM Computing Surveys (CSUR), 44(1), 1-50.  
+
+[^16]:Schulman, J., Wolski, F., Dhariwal, P., Radford, A., & Klimov, O. (2017). Proximal policy optimization algorithms. arXiv preprint arXiv:1707.06347.  
+
+[^17]:Lin, C. Y., & Och, F. J. (2004, June). Looking for a few good metrics: ROUGE and its evaluation. In Ntcir workshop.  
+
+[^18]:Zhang, T., Kishore, V., Wu, F., Weinberger, K. Q., & Artzi, Y. (2019). Bertscore: Evaluating text generation with bert. arXiv preprint arXiv:1904.09675.  
+
 [^19]:Kryściński, W., McCann, B., Xiong, C., & Socher, R. (2019). Evaluating the factual consistency of abstractive text summarization. arXiv preprint arXiv:1910.12840.
 
-
+[^20]:Touvron, H., Martin, L., Stone, K., Albert, P., Almahairi, A., Babaei, Y., ... & Scialom, T. (2023). Llama 2: Open foundation and fine-tuned chat models. arXiv preprint arXiv:2307.09288.
 
 
 
