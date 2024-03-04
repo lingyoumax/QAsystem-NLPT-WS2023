@@ -30,7 +30,10 @@ After the data set is generated, the data set needs to be further filtered and p
 Use the final data as a fine-tuning dataset in SFT
 ## II.Used in Reward model Traing
 Here we only use the Question part to allow the model to deduce and obtain the model's answer for further processing to obtain the data set.
-## III.Used in PPO
+## III.Used in DPO
+Same as Reward model
+
+## IV.Used in Reject sampling
 Same as Reward model
 
 # **Citation**
