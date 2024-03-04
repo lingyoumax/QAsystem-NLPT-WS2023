@@ -28,5 +28,13 @@ The `retrieval` folder contains all components related to text retrieval functio
 - **lexical_search:** Dedicated to lexical search strategies, this subfolder contains code and resources for performing text retrieval based on exact matches and traditional search techniques.
 - **semantic_search:** This subfolder focuses on semantic search capabilities, encompassing algorithms and models that understand the meaning and context behind the text.
 
+### QA_finetune
+All relevant training code for the QA model
+For a more detailed explanation, please refer to the readme of the corresponding folder.
+
+### Question type
+This model is only used when generating seed questions.
+Not very important
+
 ### webapp
 The `webapp` folder houses the front-end and back-end components of the web application part of the project. For detailed information on how to set up, run, and deploy the web app, as well as a thorough explanation of its architecture and components, refer to the `README.md` file located within the `webapp` folder.
