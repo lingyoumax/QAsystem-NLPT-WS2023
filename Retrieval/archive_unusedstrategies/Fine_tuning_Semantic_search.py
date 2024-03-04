@@ -42,11 +42,9 @@ class SemanticSearchDataset(Dataset):
         return len(self.dataframe)
 
     def __getitem__(self, idx):
-        # 确保文本是字符串类型
         question = str(self.dataframe.iloc[idx]['Question'])
         abstract = str(self.dataframe.iloc[idx]['Abstract'])
 
-        # 过滤掉空字符串
         if not question.strip():
             question = "empty"
         if not abstract.strip():

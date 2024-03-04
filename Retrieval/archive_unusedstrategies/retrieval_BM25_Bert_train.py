@@ -20,7 +20,6 @@ class BertSimilarityNet(nn.Module):
         self.fc3 = nn.Linear(64, 1)
 
     def forward(self, query, doc):
-        # 解构query和doc字典
         query_input_ids = query['input_ids'].squeeze(1)
         query_attention_mask = query['attention_mask'].squeeze(1)
         doc_input_ids = doc['input_ids'].squeeze(1)
@@ -63,7 +62,6 @@ class QAPDataset(Dataset):
 
     def __getitem__(self, idx):
         query, doc, label = self.data[idx]
-        # 确保在这里对query和doc应用padding和truncation
         query_enc = self.tokenizer(query, return_tensors="pt", padding='max_length', truncation=True, max_length=512)
         doc_enc = self.tokenizer(doc, return_tensors="pt", padding='max_length', truncation=True, max_length=512)
         return query_enc, doc_enc, torch.tensor(label, dtype=torch.float32)
@@ -76,11 +74,8 @@ def train_model(model, train_loader, criterion, optimizer, epochs=3):
     for epoch in range(epochs):
         model.train()
         total_loss = 0
-        # 使用tqdm包装train_loader
         for batch in tqdm(train_loader, desc=f"Epoch {epoch + 1}/{epochs}"):
             query_enc, doc_enc, labels = batch
-
-            # 由于query_enc和doc_enc是dict，需要对它们的每个值应用.to(device)
             query_enc = {k: v.to(device) for k, v in query_enc.items()}
             doc_enc = {k: v.to(device) for k, v in doc_enc.items()}
             labels = labels.to(device)
@@ -91,28 +86,23 @@ def train_model(model, train_loader, criterion, optimizer, epochs=3):
             loss.backward()
             optimizer.step()
             total_loss += loss.item()
-            # 清理GPU缓存
             del query_enc, doc_enc, labels, outputs, loss
             torch.cuda.empty_cache()
 
-        # 每个epoch结束后打印平均损失
         avg_loss = total_loss / len(train_loader)
         print(f'Epoch {epoch + 1}/{epochs}, Average Loss: {avg_loss}')
 
-
-# 初始化BERT模型和tokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 bert_model_query = BertModel.from_pretrained('bert-base-uncased')
 bert_model_doc = BertModel.from_pretrained('bert-base-uncased')
 
-# 加载数据集
 file_path_qap = 'qap.csv'
 df = pd.read_csv('./PubmedDataSet.csv')
 df['combined'] = df['Abstract'].fillna("") + " " + df['PubDate'].fillna("") + " " + df['Authors'].fillna("")
 dataset = QAPDataset(file_path_qap, tokenizer, df)
 train_loader = DataLoader(dataset, batch_size=2, shuffle=True)
 print('train data prepared')
-# 初始化和训练模型
+
 model = BertSimilarityNet(bert_model_query, bert_model_doc).to(device)
 criterion = nn.BCELoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
@@ -125,7 +115,6 @@ torch.save(model.fc2.state_dict(), 'fc2_model.pth')
 torch.save(model.fc3.state_dict(), 'fc3_model.pth')
 
 
-# 加载bert_doc模型
 bert_model_doc = BertModel.from_pretrained('bert-base-uncased')
 bert_model_doc.load_state_dict(torch.load('bert_doc_model.pth'))
 bert_model_doc = bert_model_doc.to(device)
@@ -133,7 +122,7 @@ bert_model_doc.eval()
 
 
 print('calculating doc_vec...')
-# 处理df['combined']数据并保存向量
+
 vectors = []
 for _, row in df.iterrows():
     doc = row['combined']
@@ -142,7 +131,6 @@ for _, row in df.iterrows():
         doc_vec = bert_model_doc(**doc_enc).last_hidden_state.mean(1).squeeze().cpu().numpy()
     vectors.append((row['PMID'], doc_vec))
 
-# 保存PMID和向量
 with open('doc_vectors.pkl', 'wb') as f:
     pickle.dump(vectors, f)
 print('doc_vectors.pkl saved')
